@@ -12,6 +12,7 @@ declare namespace Application {
     }
 
     export interface TravelNote {
+      id: number
       coverUrl: string
       title: string
       description: string

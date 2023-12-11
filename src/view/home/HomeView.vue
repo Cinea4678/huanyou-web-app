@@ -47,8 +47,8 @@ const reloadWaterFlow = () => {
     <div class="mt-4 mx-3">
       <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">
         <recommend-travel-note
-          v-for="(d, i) in homeRecommendTravelNotes"
-          :key="i"
+          v-for="d in homeRecommendTravelNotes"
+          :key="d.id"
           :note="d"
           type="note"
           @load="reloadWaterFlow"
@@ -61,11 +61,11 @@ const reloadWaterFlow = () => {
 <style scoped>
 .app-top {
   /*background: linear-gradient(to bottom, #0066cc 0, #0066cc 70%, #0066cc00);*/
-  background: #6abf69;
-  color: white;
+  background: #d7ece6;
+  color: black;
 }
 .app-post-top {
-  background: linear-gradient(to bottom, #6abf69, #6abf6900);
+  background: linear-gradient(to bottom, #d7ece6, #d7ece600);
 }
 .button-card {
   @apply mt-4 mx-3 grid grid-cols-4 bg-white rounded-lg;

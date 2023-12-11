@@ -9,7 +9,7 @@
 <style>
 body {
   background-size: cover;
-  background: #ddf3ff;
+  background: #d7ece6;
   background: url("/mesh.png") no-repeat center center fixed;
 
   font-weight: lighter;
