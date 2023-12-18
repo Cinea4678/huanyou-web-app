@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ScenicSpot = Application.HomeRecommend.ScenicSpot
+import ScenicSpot = Application.HomeRecommend.Resort
 
 defineProps<{
   scenic: ScenicSpot

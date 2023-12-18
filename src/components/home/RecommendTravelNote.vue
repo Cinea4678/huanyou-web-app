@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TravelNotes = Application.HomeRecommend.TravelNote
+import TravelNotes = Application.HomeRecommend.TravelRecord
 
 interface Props {
   type?: "note" | "end"

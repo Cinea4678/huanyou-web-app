@@ -9,7 +9,7 @@ function mockApiResp<T>(data: T): ApiResponse<T> {
 Mock.mock(
   "/api/home-recommend/scenic-spot",
   "get",
-  mockApiResp<HomeRecommend.ScenicSpot[]>([
+  mockApiResp<HomeRecommend.Resort[]>([
     { description: "杭州市 - 西湖", imageUrl: "/mock/west-lake.jpg" },
     { description: "上海市 - 外滩", imageUrl: "/mock/shanghai-bund.jpg" },
     { description: "北京市 - 天坛祈年殿", imageUrl: "/mock/temple-of-heaven.jpg" },
@@ -19,7 +19,7 @@ Mock.mock(
 Mock.mock(
   "/api/home-recommend/travel-note",
   "get",
-  mockApiResp<HomeRecommend.TravelNote[]>([
+  mockApiResp<HomeRecommend.TravelRecord[]>([
     {
       id: 1,
       coverUrl: "/mock/mock-note-1.jpg",

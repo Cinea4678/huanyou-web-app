@@ -1,7 +1,7 @@
 import { doAxiosAsyncFull } from "@/utils/axios.ts"
 import axios from "axios"
-import ScenicSpot = Application.HomeRecommend.ScenicSpot
-import TravelNote = Application.HomeRecommend.TravelNote
+import ScenicSpot = Application.HomeRecommend.Resort
+import TravelNote = Application.HomeRecommend.TravelRecord
 
 export async function GetHomeRecommendScenicSpot() {
   return await doAxiosAsyncFull<ScenicSpot[]>(axios.get("/api/home-recommend/scenic-spot"), "获取推荐景点")

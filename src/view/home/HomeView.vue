@@ -9,8 +9,8 @@ import RecommendTravelNote from "@/components/home/RecommendTravelNote.vue"
 
 const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)
 
-const homeRecommendScenicSpot = ref<HomeRecommend.ScenicSpot[]>([])
-const homeRecommendTravelNotes = ref<HomeRecommend.TravelNote[]>([])
+const homeRecommendScenicSpot = ref<HomeRecommend.Resort[]>([])
+const homeRecommendTravelNotes = ref<HomeRecommend.TravelRecord[]>([])
 onMounted(() => {
   GetHomeRecommendScenicSpot().then((res) => (homeRecommendScenicSpot.value = res))
   GetHomeRecommendTravelNotes().then((res) => (homeRecommendTravelNotes.value = res))
