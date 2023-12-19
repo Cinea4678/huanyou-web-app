@@ -2,7 +2,9 @@
 
 <template>
   <div class="app-container">
-    <router-view />
+    <suspense>
+      <router-view />
+    </suspense>
   </div>
 </template>
 
@@ -14,7 +16,24 @@ body {
 
   font-weight: lighter;
 }
+
+body:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background: linear-gradient(to bottom, #d7ece6 30%, #d7ece600);
+
+  z-index: 0;
+}
+
 .app-container {
-  min-height: 200vh;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+
+  @apply px-3;
 }
 </style>

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 const routes = [
   { path: "/", component: () => import("@/view/home/HomeView.vue") },
-  { path: "/scenic-spot/:id", component: () => import("@/view/scenic-spot/ScenicSpotView.vue") },
+  { path: "/resort/:id", component: () => import("@/view/resort/ResortView.vue") },
 ]
 
 export default createRouter({

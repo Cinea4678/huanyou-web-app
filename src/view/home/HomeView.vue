@@ -2,7 +2,7 @@
 import { VueFlexWaterfall } from "vue-flex-waterfall"
 import { Search } from "@element-plus/icons-vue"
 import { onMounted, ref } from "vue"
-import { GetHomeRecommendScenicSpot, GetHomeRecommendTravelNotes } from "@/services/api.ts"
+import { GetHomeRecommendResort, GetHomeRecommendTravelNotes } from "@/services/api.ts"
 
 import HomeRecommend = Application.HomeRecommend
 import RecommendTravelNote from "@/components/home/RecommendTravelNote.vue"
@@ -12,7 +12,7 @@ const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)
 const homeRecommendScenicSpot = ref<HomeRecommend.Resort[]>([])
 const homeRecommendTravelNotes = ref<HomeRecommend.TravelRecord[]>([])
 onMounted(() => {
-  GetHomeRecommendScenicSpot().then((res) => (homeRecommendScenicSpot.value = res))
+  GetHomeRecommendResort().then((res) => (homeRecommendScenicSpot.value = res))
   GetHomeRecommendTravelNotes().then((res) => (homeRecommendTravelNotes.value = res))
 })
 
@@ -61,11 +61,7 @@ const reloadWaterFlow = () => {
 <style scoped>
 .app-top {
   /*background: linear-gradient(to bottom, #0066cc 0, #0066cc 70%, #0066cc00);*/
-  background: #d7ece6;
   color: black;
-}
-.app-post-top {
-  background: linear-gradient(to bottom, #d7ece6, #d7ece600);
 }
 .button-card {
   @apply mt-4 mx-3 grid grid-cols-4 bg-white rounded-lg;
