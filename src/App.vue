@@ -15,6 +15,10 @@ body {
   background: url("/mesh.png") no-repeat center center fixed;
 
   font-weight: lighter;
+
+  --app-padl: 12px;
+  --app-padr: 12px;
+  --app-padx: calc(var(--app-padl) + var(--app-padr));
 }
 
 body:before {
@@ -34,6 +38,7 @@ body:before {
   position: relative;
   z-index: 1;
 
-  @apply px-3;
+  padding-left: var(--app-padl);
+  padding-right: var(--app-padr);
 }
 </style>

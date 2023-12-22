@@ -8,15 +8,18 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElPageHeader: typeof import('element-plus/es')['ElPageHeader']
+    ImageGallery: typeof import('./src/components/resort/ImageGallery.vue')['default']
     PageHeader: typeof import('./src/components/page/PageHeader.vue')['default']
     RecommendScenicSpot: typeof import('./src/components/home/RecommendScenicSpot.vue')['default']
     RecommendTravelNote: typeof import('./src/components/home/RecommendTravelNote.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SmallMap: typeof import('./src/components/resort/SmallMap.vue')['default']
     SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
   }
 }

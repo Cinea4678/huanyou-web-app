@@ -57,7 +57,7 @@ Mock.mock(
 )
 
 Mock.mock(
-  "/api/resort",
+  "/api/resort?id=1",
   "get",
   mockApiResp<Resort>({
     address: "120.156832,30.260652",

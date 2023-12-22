@@ -112,3 +112,103 @@ declare namespace Model {
     items: string[]
   }
 }
+
+declare namespace AMap {
+  declare namespace ReGeo {
+    export interface ReGeoEncoding {
+      status: string
+      info: string
+      infocode: string
+      regeocode: Regeocode
+    }
+
+    export interface Regeocode {
+      formatted_address: string
+      addressComponent: AddressComponent
+      pois: Pois[]
+      roads: Road[]
+      roadinters: Roadinter[]
+      aois: Aois[]
+    }
+
+    export interface AddressComponent {
+      country: string
+      province: string
+      city: string
+      citycode: string
+      district: string
+      adcode: string
+      township: string
+      towncode: string
+      neighborhood: Neighborhood
+      building: Building
+      streetNumber: StreetNumber
+      businessAreas: BusinessArea[]
+    }
+
+    export interface Building {
+      name: any[]
+      type: any[]
+    }
+
+    export interface BusinessArea {
+      location: string
+      name: string
+      id: string
+    }
+
+    export interface Neighborhood {
+      name: string
+      type: string
+    }
+
+    export interface StreetNumber {
+      street: string
+      number: string
+      location: string
+      direction: string
+      distance: string
+    }
+
+    export interface Aois {
+      id: string
+      name: string
+      adcode: string
+      location: string
+      area: string
+      distance: string
+      type: string
+    }
+
+    export interface Pois {
+      id: string
+      name: string
+      type: string
+      tel: any[] | string
+      direction: string
+      distance: string
+      location: string
+      address: string
+      poiweight: string
+      businessarea: string
+    }
+
+    export interface Roadinter {
+      direction: string
+      distance: string
+      location: string
+      first_id: string
+      first_name: string
+      second_id: string
+      second_name: string
+    }
+
+    export interface Road {
+      id: string
+      name: string
+      direction: string
+      distance: string
+      location: string
+    }
+  }
+}
