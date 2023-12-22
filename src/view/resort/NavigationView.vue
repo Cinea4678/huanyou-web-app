@@ -59,7 +59,7 @@ const jump = () => {
       </div>
       <div class="relative w-full h-[140px] bg-white rounded-b-2xl border-t-0 border border-black/10 py-2 px-3">
         <div class="text-xl font-bold">{{ resort.name }}</div>
-        <div class="text-sm text-gray-400">{{ reGeoData.regeocode.formatted_address }}</div>
+        <div class="text-sm font-normal text-gray-400">{{ reGeoData.regeocode.formatted_address }}</div>
         <div class="absolute bottom-5 right-5">
           <div
             class="h-[50px] w-[50px] rounded-full bg-blue-500 drop-shadow-lg flex justify-center items-center"

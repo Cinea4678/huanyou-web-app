@@ -38,9 +38,9 @@ const gotoNavi = () => {
     <image-gallery :image-list="resort.imageList" />
     <div class="bg-white pt-2 pb-4 px-3 rounded-b-2xl">
       <div class="font-bold text-xl">{{ resort.name }}</div>
-      <div class="mt-0.5 font-light text-sm text-gray-400">{{ resort.summary }}</div>
+      <div class="mt-0.5 font-normal text-sm text-gray-400">{{ resort.summary }}</div>
       <small-map v-if="resort.address != ''" class="mt-3 drop-shadow" :loc="resort.address" @click="gotoNavi" />
-      <div class="mt-3 text-sm text-gray-600">{{ resort.description }}</div>
+      <div class="mt-3 font-normal text-sm text-gray-600">{{ resort.description }}</div>
     </div>
     <div class="mt-4">
       <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">
