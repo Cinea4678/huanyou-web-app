@@ -18,26 +18,24 @@ let mapInstance
 
 const reGeoData = ref(DefaultReGeoEncodinig)
 
-const fetchReGeoData = () => {
-  GetRegeoEncode(resort.value.address, "风景名胜", 1000, "base").then((v) => (reGeoData.value = v))
+const fetchReGeoData = async () => {
+  reGeoData.value = await GetRegeoEncode(resort.value.address, "风景名胜", 1000, "base")
 }
 
-onMounted(async () => {
-  resort.value = await GetResort(resortId.value)
-  fetchReGeoData()
+resort.value = await GetResort(resortId.value)
+await fetchReGeoData()
 
-  let [lon, lan] = resort.value.address.split(",").map(Number)
+let [lon, lan] = resort.value.address.split(",").map(Number)
 
-  AMapLoader.load({
-    key: "a0a055d03dded14b86a53fdb2dc67523",
-    version: "1.4.15",
-    plugins: ["AMap.Scale", "AMap.ToolBar", "AMap.ControlBar", "AMap.MouseTool"],
-  }).then((AMap) => {
-    mapInstance = new AMap.Map(map.value, {
-      viewMode: "3D",
-      zoom: 11,
-      center: [lon, lan],
-    })
+AMapLoader.load({
+  key: "a0a055d03dded14b86a53fdb2dc67523",
+  version: "1.4.15",
+  plugins: ["AMap.Scale", "AMap.ToolBar", "AMap.ControlBar", "AMap.MouseTool"],
+}).then((AMap) => {
+  mapInstance = new AMap.Map(map.value, {
+    viewMode: "3D",
+    zoom: 11,
+    center: [lon, lan],
   })
 })
 
@@ -46,7 +44,7 @@ const jump = () => {
   let [lon, lan] = resort.value.address.split(",").map(Number)
 
   mapInstance.poiOnAMAP({
-    name: resort.value,
+    name: resort.value.name,
     location: [lon, lan],
   })
 }
@@ -56,7 +54,7 @@ const jump = () => {
   <div>
     <page-header title="景区导航" />
     <div class="w-[calc(100vw-var(--app-padx))] drop-shadow">
-      <div class="w-full h-[calc(100vh-220px)] rounded-t-2xl overflow-clip border-b-0 border border-black/10">
+      <div class="w-full h-[calc(100vh-350px)] rounded-t-2xl overflow-clip border-b-0 border border-black/10">
         <div ref="map" class="w-full h-full" />
       </div>
       <div class="relative w-full h-[140px] bg-white rounded-b-2xl border-t-0 border border-black/10 py-2 px-3">

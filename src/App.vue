@@ -4,6 +4,11 @@
   <div class="app-container">
     <suspense>
       <router-view />
+      <template #fallback>
+        <div class="flex w-full h-full justify-center items-center">
+          <svg-icon name="InfLoading" />
+        </div>
+      </template>
     </suspense>
   </div>
 </template>

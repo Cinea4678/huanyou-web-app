@@ -11,9 +11,7 @@ const resortId = computed(() => route.params["id"])
 
 const resort = ref<Resort>(DefaultResort)
 
-onMounted(async () => {
-  resort.value = await GetResort(resortId.value)
-})
+resort.value = await GetResort(resortId.value)
 
 const gotoNavi = () => {
   router.push(`/navi/${resortId.value}`)
