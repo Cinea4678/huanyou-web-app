@@ -7,6 +7,7 @@ declare namespace Application {
 
   declare namespace HomeRecommend {
     export interface Resort {
+      id: string
       imageUrl: string
       description: string
     }

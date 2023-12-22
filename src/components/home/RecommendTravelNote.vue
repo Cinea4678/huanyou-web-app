@@ -45,6 +45,6 @@ const emits = defineEmits<{
   grid-row-end: span 180;
   margin-bottom: 10px;
 
-  width: calc(calc(100vw - calc(var(--app-padx) + 34px)) / 2);
+  width: calc(calc(100vw - calc(var(--app-padx) + 18px)) / 2);
 }
 </style>

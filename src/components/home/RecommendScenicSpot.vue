@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import ScenicSpot = Application.HomeRecommend.Resort
+import { useRouter } from "vue-router"
 
-defineProps<{
+const props = defineProps<{
   scenic: ScenicSpot
 }>()
+
+const router = useRouter()
+
+const jump = () => {
+  router.push(`/resort/${props.scenic.id}`)
+}
 </script>
 
 <template>
-  <div class="card w-full h-full relative">
+  <div class="card w-full h-full relative" @click="jump">
     <div class="card-top-info text-white px-3 py-1 flex flex-col">
       {{ scenic.description }}
     </div>
