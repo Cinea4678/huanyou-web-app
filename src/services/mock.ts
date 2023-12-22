@@ -2,6 +2,7 @@ import Mock from "mockjs"
 import ApiResponse = Application.ApiResponse
 import HomeRecommend = Application.HomeRecommend
 import Resort = Model.Resort
+import TravelGuide = Model.TravelGuide
 
 function mockApiResp<T>(data: T): ApiResponse<T> {
   return { code: 10000, data: data, msg: "成功" }
@@ -72,4 +73,59 @@ Mock.mock(
     region: "浙江省 杭州市",
     summary: "中国十大风景名胜之一，全国首批5A级景区，被列入世界遗产名录",
   }),
+)
+
+Mock.mock(
+  "/api/guide/by-resort-id?id=1",
+  "get",
+  mockApiResp<TravelGuide[]>([
+    {
+      author: "999",
+      comments: [],
+      content: "<p>暴走一天2万步+，走完外西湖+里西湖！</p><p>路线：</p><p>酒店->钱王祠坐船->三潭映月</p>",
+      id: "",
+      images: ["/mock/mock-guide-1.JPG"],
+      like: 1525,
+      publishTime: "2023-12-01T12:00:00",
+      resort: <Resort>{},
+      status: "",
+      title: "西湖一日游 | 里西湖+外西湖游览路线图",
+    },
+    {
+      author: "999",
+      comments: [],
+      content: "<p>去了两次西湖，基本景点都走了一个遍，筛选了一些Zui值得去的景点，总结出来。</p>",
+      id: "",
+      images: ["/mock/mock-guide-2.JPG"],
+      like: 16322,
+      publishTime: "2023-07-18T12:00:00",
+      resort: <Resort>{},
+      status: "",
+      title: "只需5步！杭州西湖最新游玩攻略！纯经验无广",
+    },
+    {
+      author: "999",
+      comments: [],
+      content: "<p>西湖和灵隐寺为什么总那么多人？因为杭州本地人也爱得深沉。我在杭州第十一年，依然看不厌山水四季。</p>",
+      id: "",
+      images: ["/mock/mock-guide-3.JPG"],
+      like: 6394,
+      publishTime: "2023-05-14T12:00:00",
+      resort: <Resort>{},
+      status: "",
+      title: "我有20条不踩雷杭州旅游路线，这是第一条。",
+    },
+    {
+      author: "999",
+      comments: [],
+      content: "<p>西湖一圈全长大10多公里，可以路过将近20个景区，除了有的断桥、雷峰塔，还有很多好看的景点。</p>",
+      id: "",
+      images: ["/mock/mock-guide-4.JPG"],
+      like: 327,
+      publishTime: "2023-05-14T12:00:00",
+      resort: <Resort>{},
+      status: "",
+      title: "不知道西湖怎么逛，1️⃣定要看这一篇",
+    },
+  ]),
 )
