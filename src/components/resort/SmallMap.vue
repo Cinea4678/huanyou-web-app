@@ -30,7 +30,7 @@ watch(props, () => {
 </script>
 
 <template>
-  <div class="drop-shadow relative h-[70px] rounded-2xl overflow-clip border border-black/20">
+  <div class="drop-shadow-lg relative h-[70px] rounded-2xl overflow-clip border border-black/20">
     <img
       alt=""
       :src="GetStaticMapUrl(locOffset, '11', '600*100', `mid,0x008000,:${loc}`)"
