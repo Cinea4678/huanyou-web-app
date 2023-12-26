@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router"
 import { computed, onMounted, ref } from "vue"
-import { DefaultReGeoEncodinig, DefaultResort } from "@/services/default.ts"
+import { DefaultReGeoEncoding, DefaultResort } from "@/services/default.ts"
 import { GetRegeoEncode, GetResort } from "@/services/api.ts"
 import AMapLoader from "@amap/amap-jsapi-loader"
 import { Position } from "@element-plus/icons-vue"
@@ -16,7 +16,7 @@ const resort = ref<Resort>(DefaultResort)
 const map = ref<HTMLElement | null>(null)
 let mapInstance
 
-const reGeoData = ref(DefaultReGeoEncodinig)
+const reGeoData = ref(DefaultReGeoEncoding)
 
 const fetchReGeoData = async () => {
   reGeoData.value = await GetRegeoEncode(resort.value.address, "风景名胜", 1000, "base")

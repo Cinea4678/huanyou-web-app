@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { GetRegeoEncode, GetStaticMapUrl } from "@/services/api.ts"
 import { computed, onMounted, ref, watch } from "vue"
-import { DefaultReGeoEncodinig } from "@/services/default.ts"
+import { DefaultReGeoEncoding } from "@/services/default.ts"
 
 let props = defineProps<{
   loc: string
@@ -14,7 +14,7 @@ const locOffset = computed(() => {
   return [lon, lat].join(",")
 })
 
-const reGeoData = ref(DefaultReGeoEncodinig)
+const reGeoData = ref(DefaultReGeoEncoding)
 
 const fetchReGeoData = async () => {
   reGeoData.value = await GetRegeoEncode(props.loc, "风景名胜", 1000, "base")

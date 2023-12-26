@@ -25,6 +25,16 @@ export async function GetResortGuides(id: string) {
   )
 }
 
+export async function GetTravelGuide(id: string) {
+  return await doAxiosAsyncFull<TravelGuide>(axios.get("/api/guide", { params: { id: id } }), "获取旅行攻略")
+}
+
+/**
+ * 分界线：
+ * ↑↑↑ 我们的API
+ * ↓↓↓ 高德的API
+ */
+
 export const AMapKey = "8f120acdc412bcdf2eea9fdf62045dbe"
 
 export function GetStaticMapUrl(loc: string, zoom: string, size: string, markers: string) {

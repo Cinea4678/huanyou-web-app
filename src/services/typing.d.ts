@@ -103,7 +103,7 @@ declare namespace Model {
     like: number
     comments: Comment[]
     status: string
-    resort: Resort
+    resort?: Resort
   }
 
   export interface Favorites {

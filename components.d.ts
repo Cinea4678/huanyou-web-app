@@ -14,6 +14,8 @@ declare module 'vue' {
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    GuideImageGallery: typeof import('./src/components/guide/GuideImageGallery.vue')['default']
+    HeartIcon: typeof import('./src/components/guide/HeartIcon.vue')['default']
     ImageGallery: typeof import('./src/components/resort/ImageGallery.vue')['default']
     PageHeader: typeof import('./src/components/page/PageHeader.vue')['default']
     RecommendScenicSpot: typeof import('./src/components/home/RecommendScenicSpot.vue')['default']
@@ -23,5 +25,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SmallMap: typeof import('./src/components/resort/SmallMap.vue')['default']
     SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
+    TravelGuide: typeof import('./src/components/guide/TravelGuide.vue')['default']
   }
 }

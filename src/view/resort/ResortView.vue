@@ -1,12 +1,11 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router"
-import { ref, computed, onMounted } from "vue"
-import Resort = Model.Resort
+import { computed, onMounted, ref } from "vue"
 import { GetResort, GetResortGuides } from "@/services/api.ts"
 import { DefaultResort } from "@/services/default.ts"
-import TravelGuide = Model.TravelGuide
 import { VueFlexWaterfall } from "vue-flex-waterfall"
-import RecommendTravelNote from "@/components/home/RecommendTravelNote.vue"
+import Resort = Model.Resort
+import TravelGuide = Model.TravelGuide
 
 const route = useRoute()
 const router = useRouter()
@@ -15,7 +14,7 @@ const resortId = computed(() => route.params["id"])
 const resort = ref<Resort>(DefaultResort)
 const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)
 
-resort.value = await GetResort(resortId.value)
+resort.value = await GetResort(<string>resortId.value)
 
 const recommendGuides = ref<TravelGuide[]>([])
 
@@ -39,8 +38,11 @@ const gotoNavi = () => {
     <div class="bg-white pt-2 pb-4 px-3 rounded-b-2xl">
       <div class="font-bold text-xl">{{ resort.name }}</div>
       <div class="mt-0.5 font-normal text-sm text-gray-400">{{ resort.summary }}</div>
-      <small-map v-if="resort.address != ''" class="mt-3 drop-shadow" :loc="resort.address" @click="gotoNavi" />
+      <small-map v-if="resort.address != ''" :loc="resort.address" class="mt-3 drop-shadow" @click="gotoNavi" />
       <div class="mt-3 font-normal text-sm text-gray-600">{{ resort.description }}</div>
+    </div>
+    <div class="mt-4">
+      <div class="sub-title">精选旅行攻略</div>
     </div>
     <div class="mt-4">
       <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">
@@ -56,4 +58,11 @@ const gotoNavi = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.sub-title {
+  @apply font-[SmileySans] text-xl;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to bottom, #788c65, #96af7f);
+}
+</style>

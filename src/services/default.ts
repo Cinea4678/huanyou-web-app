@@ -1,5 +1,6 @@
 import Resort = Model.Resort
 import ReGeoEncoding = AMap.ReGeo.ReGeoEncoding
+import TravelGuide = Model.TravelGuide
 
 export const DefaultResort: Resort = {
   address: "",
@@ -14,7 +15,7 @@ export const DefaultResort: Resort = {
   summary: "",
 }
 
-export const DefaultReGeoEncodinig: ReGeoEncoding = {
+export const DefaultReGeoEncoding: ReGeoEncoding = {
   info: "",
   infocode: "",
   regeocode: {
@@ -39,4 +40,17 @@ export const DefaultReGeoEncodinig: ReGeoEncoding = {
     roads: [],
   },
   status: "",
+}
+
+export const DefaultTravelGuide: TravelGuide = {
+  author: "",
+  comments: [],
+  content: "",
+  id: "",
+  images: [],
+  like: 0,
+  publishTime: "",
+  resort: undefined,
+  status: "",
+  title: "",
 }
