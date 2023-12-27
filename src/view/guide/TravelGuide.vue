@@ -5,6 +5,7 @@ import { DefaultTravelGuide } from "@/services/default.ts"
 import TravelGuide = Model.TravelGuide
 import { GetTravelGuide } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
+import dayjs from "dayjs"
 
 const route = useRoute()
 const router = useRouter()
@@ -20,7 +21,12 @@ guide.value = await GetTravelGuide(<string>guideId.value)
     <guide-image-gallery :image-list="guide.images" />
     <div class="bg-white p-3 rounded-b-2xl">
       <div class="text-xl font-[SmileySans]">{{ guide.title }}</div>
-      <div class="text-[0.9em] mt-3" v-html="guide.content"></div>
+      <div class="text-[0.9em] mt-3 font-normal" v-html="guide.content"></div>
+      <div class="text-xs text-gray-500 mt-3">{{ dayjs(guide.publishTime).format("LL HH:mm") }}</div>
+      <el-divider />
+      <div class="m-2 flex flex-col gap-3">
+        <comment-component v-for="c in guide.comments" :key="c.id" :data="c" />
+      </div>
     </div>
 
     <div class="h-[70px]"></div>

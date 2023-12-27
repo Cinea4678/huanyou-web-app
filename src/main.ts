@@ -1,5 +1,8 @@
 import { createApp } from "vue"
 import "./style.css"
+import "font-pingfang-sc-font-weight-improved"
+
+import "@/utils/time.ts"
 
 import svgIcon from "@/components/svgIcon/index.vue"
 import "virtual:svg-icons-register"

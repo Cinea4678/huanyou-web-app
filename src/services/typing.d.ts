@@ -80,6 +80,7 @@ declare namespace Model {
     author: string
     time: string
     content: string
+    likes: number
   }
 
   export interface TravelRecord {
