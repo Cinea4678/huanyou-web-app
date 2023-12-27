@@ -27,5 +27,6 @@ declare module 'vue' {
     SmallMap: typeof import('./src/components/resort/SmallMap.vue')['default']
     SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
     TravelGuide: typeof import('./src/components/guide/TravelGuide.vue')['default']
+    WriteComment: typeof import('./src/components/comment/WriteComment.vue')['default']
   }
 }
