@@ -29,10 +29,7 @@ export async function GetResort(id: string) {
 }
 
 export async function GetResortGuides(id: string) {
-  return await doAxiosAsyncFull<TravelGuide[]>(
-    axios.get("/api/guide/by-resort-id", { params: { id: id } }),
-    "获取景区攻略",
-  )
+  return await doAxiosAsyncFull<TravelGuide[]>(axios.get("/api/guide/by-resort-id", { params: { id: id } }), "获取景区攻略")
 }
 
 export async function GetTravelGuide(id: string) {
@@ -52,6 +49,18 @@ export async function CheckPhoneNumber(phoneNumber: string) {
     axios.post("/api/user/register/check-phone", undefined, { params: { phoneNumber: phoneNumber } }),
     "检查手机号可用",
   )
+}
+
+export async function Register(user: Model.RegisteredUser) {
+  return await doAxiosAsyncFull<Model.RegisteredUser>(axios.post("/api/user/register", user), "注册")
+}
+
+export async function Login(username: string, password: string) {
+  let form = new FormData()
+  form.append("username", username)
+  form.append("password", password)
+
+  return await doAxiosAsyncFull<null>(axios.post("/api/login", form), "登录")
 }
 
 /**

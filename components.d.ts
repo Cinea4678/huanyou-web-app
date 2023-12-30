@@ -13,6 +13,8 @@ declare module 'vue' {
     ADivider: typeof import('ant-design-vue/es')['Divider']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
     AInput: typeof import('ant-design-vue/es')['Input']
+    ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
+    ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
     ASteps: typeof import('ant-design-vue/es')['Steps']
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
     CommentComponent: typeof import('./src/components/comment/CommentComponent.vue')['default']
