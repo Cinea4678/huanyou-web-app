@@ -24,94 +24,102 @@ declare namespace Application {
 }
 
 declare namespace Model {
-  export interface User {
-    id: string
-  }
-
   export interface RegisteredUser extends User {
-    passwordMd5: string
-    gender: "M" | "F" | "U"
-    birthday: string
-    signature: string
-    phoneNumber: string
-    followingUser: string[]
-    fansList: string[]
-    favoritesList: string[]
-    favoritesFollowingList: string[]
-    isBanned: boolean
+    id: number
+    name?: string
+    passwordHash?: string
+    gender?: "男" | "女"
+    birthday?: string
+    signature?: string
+    phoneNumber?: string
+    following?: number
+    followingRegisteredUser?: RegisteredUser[]
+    fans?: number
+    fansList?: RegisteredUser[]
+    favoritesList?: Favorites[]
+    favoritesFollowingList?: Favorites[]
+    isBanned?: boolean
+    banList?: Ban[]
   }
 
-  export interface Administrator extends User {
-    passwordMd5: string
-    phoneNumber: string
+  export interface Administrator {
+    id: string
+    passwordHash?: string
+    phoneNumber?: string
   }
 
   export interface Appeal {
-    id: string
-    state: string // 待定
-    content: string
-    appealTime: string
-    banId: string
+    id: number
+    state?: "NOT_REVIEWED" | "PASSED" | "REJECTED"
+    content?: string
+    appealTime?: string
+    ban?: Ban
   }
 
   export interface Ban {
-    id: string
-    userId: string
-    startTime: string
-    duration: number
-    reason: string
+    id: number
+    userId?: number
+    startTime?: string
+    endTime?: string
+    reason?: string
   }
 
   export interface Resort {
-    id: string
-    address: string
-    region: string
-    name: string
-    imageList: string[]
-    description: string
-    guideList: TravelGuide[]
-    summary: string
-    likes: number
-    collections: string[]
+    id: number
+    address?: string
+    name?: string
+    imageList?: string[]
+    description?: string
+    guideList?: TravelGuide[]
+    summary?: string
+    likes?: number
+    likedUser?: RegisteredUser[]
   }
 
   export interface Comment {
-    id: string
-    author: string
-    time: string
-    content: string
-    likes: number
+    id: number
+    author?: RegisteredUser
+    time?: string
+    content?: string
+    likes?: number
+    likedUser?: RegisteredUser[]
+    reply?: Comment[]
   }
 
   export interface TravelRecord {
-    id: string
-    author: string
-    title: string
-    content: string
-    images: string[]
-    publishTime: string
-    like: number
-    comments: Comment[]
+    id: number
+    author?: RegisteredUser
+    title?: string
+    content?: string
+    images?: string[]
+    publishTime?: string
+    like?: number
+    likedUser?: RegisteredUser[]
+    favorites?: number
+    comments?: Comment[]
   }
 
   export interface TravelGuide {
-    id: string
-    author: string
-    title: string
-    content: string
-    images: string[]
-    publishTime: string
-    like: number
-    comments: Comment[]
-    status: string
+    id: number
+    author?: RegisteredUser
+    title?: string
+    content?: string
+    images?: string[]
+    publishTime?: string
+    like?: number
+    likedUser?: RegisteredUser[]
+    favorites?: number
+    comments?: Comment[]
     resort?: Resort
   }
 
   export interface Favorites {
-    id: string
-    name: string
-    creationTime: string
-    items: string[]
+    id: number
+    name?: string
+    creationTime?: string
+    owner?: RegisteredUser
+    itemGuides?: TravelGuide[]
+    itemRecords?: TravelRecord[]
   }
 }
 

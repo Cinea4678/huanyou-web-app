@@ -29,6 +29,10 @@ export async function GetTravelGuide(id: string) {
   return await doAxiosAsyncFull<TravelGuide>(axios.get("/api/guide", { params: { id: id } }), "获取旅行攻略")
 }
 
+export function GetUserAvatarUrl(id: number) {
+  return `https://s.c.accr.cc/huanyou/mock-avatar-${id % 8}`
+}
+
 /**
  * 分界线：
  * ↑↑↑ 我们的API

@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    ADivider: typeof import('ant-design-vue/es')['Divider']
     AInput: typeof import('ant-design-vue/es')['Input']
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
     CommentComponent: typeof import('./src/components/comment/CommentComponent.vue')['default']
