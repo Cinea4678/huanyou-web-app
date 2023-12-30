@@ -65,7 +65,7 @@ const jump = () => {
             class="h-[50px] w-[50px] rounded-full bg-blue-500 drop-shadow-lg flex justify-center items-center"
             @click="jump"
           >
-            <el-icon color="white" size="32" style="transform: translateX(-1.5px)"><Position /></el-icon>
+            POSITION
           </div>
         </div>
       </div>

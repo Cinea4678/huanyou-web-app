@@ -1,16 +1,24 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="app-container">
-    <suspense>
-      <router-view />
-      <template #fallback>
-        <div class="flex w-full h-full justify-center items-center">
-          <svg-icon name="InfLoading" />
-        </div>
-      </template>
-    </suspense>
-  </div>
+  <a-config-provider
+    :theme="{
+      token: {
+        colorPrimary: '#388E3C',
+      },
+    }"
+  >
+    <div class="app-container">
+      <suspense>
+        <router-view />
+        <template #fallback>
+          <div class="flex w-full h-full justify-center items-center">
+            <svg-icon name="InfLoading" />
+          </div>
+        </template>
+      </suspense>
+    </div>
+  </a-config-provider>
 </template>
 
 <style>

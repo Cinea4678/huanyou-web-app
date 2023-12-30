@@ -7,14 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ACarousel: typeof import('ant-design-vue/es')['Carousel']
+    AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    AInput: typeof import('ant-design-vue/es')['Input']
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
     CommentComponent: typeof import('./src/components/comment/CommentComponent.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElCarousel: typeof import('element-plus/es')['ElCarousel']
-    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
-    ElDivider: typeof import('element-plus/es')['ElDivider']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElInput: typeof import('element-plus/es')['ElInput']
     GuideImageGallery: typeof import('./src/components/guide/GuideImageGallery.vue')['default']
     HeartIcon: typeof import('./src/components/guide/HeartIcon.vue')['default']
     ImageGallery: typeof import('./src/components/resort/ImageGallery.vue')['default']
@@ -26,7 +23,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SmallMap: typeof import('./src/components/resort/SmallMap.vue')['default']
     SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
-    TravelGuide: typeof import('./src/components/guide/TravelGuide.vue')['default']
     WriteComment: typeof import('./src/components/comment/WriteComment.vue')['default']
   }
 }

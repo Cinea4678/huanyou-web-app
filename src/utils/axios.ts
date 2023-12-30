@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios"
 import router from "@/utils/router.ts"
-import { ElMessage } from "element-plus"
+import { message } from "ant-design-vue"
 
 interface Return {
   code: number
@@ -13,19 +13,19 @@ function handleError(err: AxiosError, operation: string) {
   if (err instanceof AxiosError) {
     if (err.response) {
       if (err.response.status == 401) {
-        ElMessage.warning(`您未登录或登录失效，带您去登录。`)
+        message.warning(`您未登录或登录失效，带您去登录。`).then()
         router.push("/login").then(() => {})
       } else if (err.response.data && err.response.data["msg"] != undefined) {
-        ElMessage.warning(`${operation}失败：${err.response.data["msg"]}`)
+        message.warning(`${operation}失败：${err.response.data["msg"]}`).then()
       } else if (err.response.status == 403) {
-        ElMessage.warning(`接口拒绝访问`)
+        message.warning(`接口拒绝访问`).then()
       } else {
-        ElMessage.warning(`${operation}失败：服务器内部错误`)
+        message.warning(`${operation}失败：服务器内部错误`).then()
       }
     } else if (err.request) {
-      ElMessage.warning(`${operation}失败：网络错误`)
+      message.warning(`${operation}失败：网络错误`).then()
     } else {
-      ElMessage.warning(`${operation}失败：浏览器错误`)
+      message.warning(`${operation}失败：浏览器错误`).then()
     }
   }
 }
@@ -49,9 +49,9 @@ export function doAxios(
         callback(res.data.data)
       } else {
         if (res.data.code) {
-          ElMessage.warning(`${operation}失败：${res.data.msg}`)
+          message.warning(`${operation}失败：${res.data.msg}`).then()
         } else {
-          ElMessage.warning(`${operation}失败：服务器内部错误`)
+          message.warning(`${operation}失败：服务器内部错误`).then()
         }
       }
     })
@@ -86,9 +86,9 @@ export async function doAxiosAsync(
       await callback(res.data.data ?? null)
     } else {
       if (res.data.code) {
-        ElMessage.warning(`${operation}失败：${res.data.msg}`)
+        message.warning(`${operation}失败：${res.data.msg}`).then()
       } else {
-        ElMessage.warning(`${operation}失败：服务器内部错误`)
+        message.warning(`${operation}失败：服务器内部错误`).then()
       }
     }
   } catch (err: unknown) {
@@ -114,9 +114,9 @@ export async function doAxiosAsyncFull<T>(result: Promise<AxiosResponse<Return>>
       return res.data.data as T
     } else {
       if (res.data.code) {
-        ElMessage.warning(`${operation}失败：${res.data.msg}`)
+        message.warning(`${operation}失败：${res.data.msg}`).then()
       } else {
-        ElMessage.warning(`${operation}失败：服务器内部错误`)
+        message.warning(`${operation}失败：服务器内部错误`).then()
       }
     }
   } catch (err: unknown) {

@@ -23,7 +23,7 @@ guide.value = await GetTravelGuide(<string>guideId.value)
       <div class="text-xl font-[SmileySans]">{{ guide.title }}</div>
       <div class="text-[0.9em] mt-3 font-normal" v-html="guide.content"></div>
       <div class="text-xs text-gray-500 mt-3">{{ dayjs(guide.publishTime).format("LL HH:mm") }}</div>
-      <el-divider />
+      <a-divider />
       <div class="m-2 flex flex-col gap-3">
         <comment-component v-for="c in guide.comments" :key="c.id" :data="c" />
       </div>

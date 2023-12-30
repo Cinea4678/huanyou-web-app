@@ -30,12 +30,12 @@ const reloadWaterFlow = () => {
     <div class="grow" />
   </div>
   <div class="px-1 app-post-top flex flex-col gap-3">
-    <el-input size="large" placeholder="搜索景点" :suffix-icon="Search" />
-    <el-carousel height="200px">
-      <el-carousel-item v-for="(item, index) in homeRecommendScenicSpot" :key="index">
+    <a-input size="large" placeholder="搜索景点" :suffix-icon="Search" />
+    <a-carousel>
+      <div v-for="(item, index) in homeRecommendScenicSpot" :key="index" class="h-[200px]">
         <recommend-scenic-spot :scenic="item" />
-      </el-carousel-item>
-    </el-carousel>
+      </div>
+    </a-carousel>
   </div>
   <div class="button-card">
     <category-button title="景点景区" icon="ScenicSpot" />
