@@ -1,4 +1,4 @@
-declare namespace Application {
+declare namespace API {
   export interface ApiResponse<T> {
     code: number
     msg: string

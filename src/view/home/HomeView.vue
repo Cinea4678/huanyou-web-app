@@ -4,7 +4,7 @@ import { Search } from "@element-plus/icons-vue"
 import { onMounted, ref } from "vue"
 import { GetHomeRecommendResort, GetHomeRecommendTravelNotes } from "@/services/api.ts"
 
-import HomeRecommend = Application.HomeRecommend
+import HomeRecommend = API.HomeRecommend
 import RecommendTravelNote from "@/components/home/RecommendTravelNote.vue"
 
 const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)

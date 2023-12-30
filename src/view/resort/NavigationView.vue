@@ -29,7 +29,7 @@ let [lon, lan] = resort.value.address.split(",").map(Number)
 
 AMapLoader.load({
   key: "a0a055d03dded14b86a53fdb2dc67523",
-  version: "1.4.15",
+  version: "2.0",
   plugins: ["AMap.Scale", "AMap.ToolBar", "AMap.ControlBar", "AMap.MouseTool"],
 }).then((AMap) => {
   mapInstance = new AMap.Map(map.value, {
@@ -65,7 +65,7 @@ const jump = () => {
             class="h-[50px] w-[50px] rounded-full bg-blue-500 drop-shadow-lg flex justify-center items-center"
             @click="jump"
           >
-            POSITION
+            <i class="fa-solid fa-location-arrow fa-xl" style="color: #ffffff"></i>
           </div>
         </div>
       </div>

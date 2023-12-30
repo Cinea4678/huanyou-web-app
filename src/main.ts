@@ -9,7 +9,6 @@ import "virtual:svg-icons-register"
 
 import App from "./App.vue"
 
-import "./services/mock.ts"
 import router from "@/utils/router.ts"
 
 createApp(App).use(router).component("svg-icon", svgIcon).mount("#app")

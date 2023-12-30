@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ScenicSpot = Application.HomeRecommend.Resort
+import ScenicSpot = API.HomeRecommend.Resort
 import { useRouter } from "vue-router"
 
 const props = defineProps<{

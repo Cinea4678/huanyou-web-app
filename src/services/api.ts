@@ -1,7 +1,7 @@
 import { doAxiosAsyncFull } from "@/utils/axios.ts"
 import axios from "axios"
-import HomeRecommendResort = Application.HomeRecommend.Resort
-import TravelNote = Application.HomeRecommend.TravelRecord
+import HomeRecommendResort = API.HomeRecommend.Resort
+import TravelNote = API.HomeRecommend.TravelRecord
 import Resort = Model.Resort
 import ReGeoEncoding = AMap.ReGeo.ReGeoEncoding
 import TravelGuide = Model.TravelGuide
