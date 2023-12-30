@@ -7,10 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AButton: typeof import('ant-design-vue/es')['Button']
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADivider: typeof import('ant-design-vue/es')['Divider']
+    AEmpty: typeof import('ant-design-vue/es')['Empty']
     AInput: typeof import('ant-design-vue/es')['Input']
+    ASteps: typeof import('ant-design-vue/es')['Steps']
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
     CommentComponent: typeof import('./src/components/comment/CommentComponent.vue')['default']
     GuideImageGallery: typeof import('./src/components/guide/GuideImageGallery.vue')['default']

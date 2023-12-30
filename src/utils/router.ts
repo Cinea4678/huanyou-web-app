@@ -5,6 +5,9 @@ const routes = [
   { path: "/resort/:id", component: () => import("@/view/resort/ResortView.vue") },
   { path: "/navi/:id", component: () => import("@/view/resort/NavigationView.vue") },
   { path: "/guide/:id", component: () => import("@/view/guide/TravelGuide.vue") },
+  { path: "/record/:id", component: () => import("@/view/record/TravelRecord.vue") },
+  { path: "/login", component: () => import("@/view/user/LoginView.vue") },
+  { path: "/register", component: () => import("@/view/user/RegisterView.vue") },
 ]
 
 export default createRouter({

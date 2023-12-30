@@ -19,13 +19,16 @@ let mapInstance
 const reGeoData = ref(DefaultReGeoEncoding)
 
 const fetchReGeoData = async () => {
+  if (!resort.value.address) {
+    return
+  }
   reGeoData.value = await GetRegeoEncode(resort.value.address, "风景名胜", 1000, "base")
 }
 
-resort.value = await GetResort(resortId.value)
+resort.value = await GetResort(<string>resortId.value)
 await fetchReGeoData()
 
-let [lon, lan] = resort.value.address.split(",").map(Number)
+let [lon, lan] = resort.value.address?.split(",").map(Number) ?? [0, 0]
 
 AMapLoader.load({
   key: "a0a055d03dded14b86a53fdb2dc67523",
@@ -41,6 +44,9 @@ AMapLoader.load({
 
 // 在高德地图中打开
 const jump = () => {
+  if (!resort.value.address) {
+    return
+  }
   let [lon, lan] = resort.value.address.split(",").map(Number)
 
   mapInstance.poiOnAMAP({

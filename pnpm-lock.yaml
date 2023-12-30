@@ -8,6 +8,9 @@ dependencies:
   '@amap/amap-jsapi-loader':
     specifier: ^1.0.1
     version: 1.0.1
+  '@ant-design/icons-vue':
+    specifier: ^7.0.1
+    version: 7.0.1(vue@3.3.11)
   '@element-plus/icons-vue':
     specifier: ^2.3.1
     version: 2.3.1(vue@3.3.11)
@@ -23,9 +26,6 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
-  font-pingfang-sc-font-weight-improved:
-    specifier: ^1.0.7
-    version: 1.0.7
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -1686,10 +1686,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: false
-
-  /font-pingfang-sc-font-weight-improved@1.0.7:
-    resolution: {integrity: sha512-wF4Z9q5/pBg/Vo1JJjQqcSVEoWNqyeVP0B/bqqi/8uKUKAI+fCVlMvNIGEG0O7d0Mb3TNKgYGiAz4nVBVC5epw==}
     dev: false
 
   /for-in@1.0.2:

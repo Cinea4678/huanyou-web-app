@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { VueFlexWaterfall } from "vue-flex-waterfall"
 import { Search } from "@element-plus/icons-vue"
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { GetHomeRecommendResort, GetHomeRecommendTravelNotes } from "@/services/api.ts"
 
 import HomeRecommend = API.HomeRecommend
 import RecommendTravelNote from "@/components/home/RecommendTravelNote.vue"
+import { useStore } from "@/utils/store.ts"
+import { useRouter } from "vue-router"
+
+const store = useStore()
+const router = useRouter()
+
+const loggedIn = computed(() => store.state.loggedIn)
 
 const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)
 
@@ -18,6 +25,12 @@ onMounted(() => {
 
 const reloadWaterFlow = () => {
   waterfall.value?.updateOrder()
+}
+
+const gotoPersonalCenter = () => {
+  if (!loggedIn.value) {
+    router.push("/login").then()
+  }
 }
 </script>
 
@@ -41,7 +54,7 @@ const reloadWaterFlow = () => {
     <category-button title="景点景区" icon="ScenicSpot" />
     <category-button title="旅行记录" icon="TravelNote" />
     <category-button title="旅行攻略" icon="TravelGuide" />
-    <category-button title="个人中心" icon="PersonalCenter" />
+    <category-button :title="loggedIn ? '个人中心' : '登录注册'" icon="PersonalCenter" @click="gotoPersonalCenter" />
   </div>
   <div class="mt-4 mx-1">
     <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">

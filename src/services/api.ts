@@ -6,6 +6,16 @@ import Resort = Model.Resort
 import ReGeoEncoding = AMap.ReGeo.ReGeoEncoding
 import TravelGuide = Model.TravelGuide
 
+export async function GetCurrentUserInfo() {
+  // 手动查询
+  let result = (await axios.get("/api/user")).data as API.ApiResponse<Model.RegisteredUser>
+  if (result.code != 10000) {
+    return null
+  } else {
+    return result.data!
+  }
+}
+
 export async function GetHomeRecommendResort() {
   return await doAxiosAsyncFull<HomeRecommendResort[]>(axios.get("/api/home-recommend/resort"), "获取推荐景点")
 }
@@ -29,8 +39,19 @@ export async function GetTravelGuide(id: string) {
   return await doAxiosAsyncFull<TravelGuide>(axios.get("/api/guide", { params: { id: id } }), "获取旅行攻略")
 }
 
+export async function GetTravelRecord(id: string) {
+  return await doAxiosAsyncFull<Model.TravelRecord>(axios.get("/api/record", { params: { id: id } }), "获取旅行记录")
+}
+
 export function GetUserAvatarUrl(id: number) {
-  return `https://s.c.accr.cc/huanyou/mock-avatar-${id % 8}`
+  return `https://s.c.accr.cc/huanyou/mock-avatar-${id % 8}.jpg`
+}
+
+export async function CheckPhoneNumber(phoneNumber: string) {
+  return await doAxiosAsyncFull<null>(
+    axios.post("/api/user/register/check-phone", undefined, { params: { phoneNumber: phoneNumber } }),
+    "检查手机号可用",
+  )
 }
 
 /**

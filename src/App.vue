@@ -1,4 +1,21 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { onMounted } from "vue"
+import { GetCurrentUserInfo } from "@/services/api.ts"
+import { useStore } from "@/utils/store.ts"
+
+const store = useStore()
+
+onMounted(() => {
+  // 验证登录状态
+  GetCurrentUserInfo().then((res) => {
+    if (res) {
+      store.commit("logIn", res)
+    } else {
+      store.commit("logOut")
+    }
+  })
+})
+</script>
 
 <template>
   <a-config-provider
@@ -26,6 +43,8 @@ body {
   background-size: cover;
   background: #d7ece6;
   background: url("/mesh.png") no-repeat center center fixed;
+
+  margin: 0;
 
   font-weight: lighter;
 

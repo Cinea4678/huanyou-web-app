@@ -98,6 +98,7 @@ export default defineMock({
       id: 1,
       images: Array.from({ length: 12 }, (_, k) => `/mock/mock-guide-view-${k + 1}.JPG`),
       like: 1525,
+      favorites: 2530,
       publishTime: "2023-12-01T12:00Z",
       resort: {
         id: 1,
