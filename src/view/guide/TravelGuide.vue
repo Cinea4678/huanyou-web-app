@@ -42,11 +42,11 @@ guide.value = await GetTravelGuide(<string>guideId.value)
     </div>
 
     <div class="h-[70px]"></div>
-    <div class="fixed bottom-2 mt-3 h-[50px] border border-black/10 rounded-2xl bg-white/80 backdrop-blur">
+    <div class="fixed bottom-2 mt-3 py-1 border border-solid border-black/10 rounded-2xl bg-white/80 backdrop-blur">
       <div class="flex gap-5 h-full py-2 px-4 items-center">
         <div class="flex gap-1 items-center">
           <heart-icon />
-          <span class="font-bold text-sm">{{ guide.like }}</span>
+          <span class="font-bold text-sm">{{ guide.likes }}</span>
         </div>
         <div class="flex gap-1 items-center">
           <i class="fa-regular fa-star fa-xl"></i>

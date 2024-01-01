@@ -18,9 +18,9 @@ export default defineConfig({
       iconDirs: [resolve(__dirname, "./src/assets/icons")],
       symbolId: "icon-[dir]-[name]",
     }),
-    mockDevServerPlugin({
-      include: ["src/mock/**/*.mock.{js,ts,cjs,mjs,json,json5}"],
-    }),
+    // mockDevServerPlugin({
+    //   include: ["src/mock/**/*.mock.{js,ts,cjs,mjs,json,json5}"],
+    // }),
   ],
   resolve: {
     alias: {

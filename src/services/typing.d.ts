@@ -5,6 +5,35 @@ declare namespace API {
     data?: T
   }
 
+  export interface Page<T> {
+    content: T[]
+    pageable: Pageable
+    last: boolean
+    totalElements: number
+    totalPages: number
+    size: number
+    number: number
+    sort: Sort
+    first: boolean
+    numberOfElements: number
+    empty: boolean
+  }
+
+  export interface Pageable {
+    pageNumber: number
+    pageSize: number
+    sort: Sort
+    offset: number
+    paged: boolean
+    unpaged: boolean
+  }
+
+  export interface Sort {
+    empty: boolean
+    sorted: boolean
+    unsorted: boolean
+  }
+
   declare namespace HomeRecommend {
     export interface Resort {
       id: string
@@ -93,7 +122,7 @@ declare namespace Model {
     content?: string
     images?: string[]
     publishTime?: string
-    like?: number
+    likes?: number
     likedUser?: RegisteredUser[]
     favorites?: number
     comments?: Comment[]
@@ -106,7 +135,7 @@ declare namespace Model {
     content?: string
     images?: string[]
     publishTime?: string
-    like?: number
+    likes?: number
     likedUser?: RegisteredUser[]
     favorites?: number
     comments?: Comment[]
@@ -144,7 +173,7 @@ declare namespace AMap {
     export interface AddressComponent {
       country: string
       province: string
-      city: string
+      city: string | string[]
       citycode: string
       district: string
       adcode: string

@@ -4,14 +4,12 @@ import TravelGuide = Model.TravelGuide
 
 export const DefaultResort: Resort = {
   address: "",
-  collections: [],
   description: "",
   guideList: [],
-  id: "",
+  id: 0,
   imageList: [],
   likes: 0,
   name: "",
-  region: "",
   summary: "",
 }
 
@@ -43,14 +41,12 @@ export const DefaultReGeoEncoding: ReGeoEncoding = {
 }
 
 export const DefaultTravelGuide: TravelGuide = {
-  author: "",
   comments: [],
   content: "",
-  id: "",
+  id: 0,
   images: [],
   like: 0,
   publishTime: "",
   resort: undefined,
-  status: "",
   title: "",
 }

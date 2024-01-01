@@ -16,8 +16,8 @@ const loggedIn = computed(() => store.state.loggedIn)
 
 const waterfall = ref<InstanceType<typeof VueFlexWaterfall> | null>(null)
 
-const homeRecommendScenicSpot = ref<HomeRecommend.Resort[]>([])
-const homeRecommendTravelNotes = ref<HomeRecommend.TravelRecord[]>([])
+const homeRecommendScenicSpot = ref<Model.Resort[]>([])
+const homeRecommendTravelNotes = ref<Model.TravelRecord[]>([])
 onMounted(() => {
   GetHomeRecommendResort().then((res) => (homeRecommendScenicSpot.value = res))
   GetHomeRecommendTravelNotes().then((res) => (homeRecommendTravelNotes.value = res))
@@ -31,6 +31,10 @@ const gotoPersonalCenter = () => {
   if (!loggedIn.value) {
     router.push("/login").then()
   }
+}
+
+const gotoNote = (id: number) => {
+  router.push(`/record/${id}`)
 }
 </script>
 
@@ -58,13 +62,7 @@ const gotoPersonalCenter = () => {
   </div>
   <div class="mt-4 mx-1">
     <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">
-      <recommend-travel-note
-        v-for="d in homeRecommendTravelNotes"
-        :key="d.id"
-        :note="d"
-        type="note"
-        @load="reloadWaterFlow"
-      />
+      <recommend-travel-note v-for="d in homeRecommendTravelNotes" :key="d.id" :note="d" type="note" @load="reloadWaterFlow" @click="gotoNote(d.id)" />
     </vue-flex-waterfall>
   </div>
 </template>

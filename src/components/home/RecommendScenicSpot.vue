@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import ScenicSpot = API.HomeRecommend.Resort
 import { useRouter } from "vue-router"
+import { computed } from "vue"
 
 const props = defineProps<{
-  scenic: ScenicSpot
+  scenic: Model.Resort
 }>()
 
 const router = useRouter()
+
+const cover = computed(() => props.scenic.imageList![0] ?? "")
 
 const jump = () => {
   router.push(`/resort/${props.scenic.id}`)
@@ -16,7 +18,7 @@ const jump = () => {
 <template>
   <div class="card w-full h-full relative" @click="jump">
     <div class="card-top-info text-white px-3 py-1 flex flex-col">
-      {{ scenic.description }}
+      {{ scenic.name }}
     </div>
   </div>
 </template>
@@ -25,7 +27,7 @@ const jump = () => {
 .card {
   @apply rounded-xl;
 
-  background: v-bind("`url('${scenic.imageUrl}')`") center;
+  background: v-bind("`url('${cover}')`") center;
   background-size: cover;
   overflow: clip;
 }

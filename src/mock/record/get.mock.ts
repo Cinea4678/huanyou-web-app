@@ -16,7 +16,7 @@ export default defineMock({
       favorites: 1493,
       id: 1,
       images: Array.from({ length: 9 }, (_, i) => `https://s.c.accr.cc/huanyou/mock-note-view-${i + 1}.jpg`),
-      like: 4478,
+      likes: 4478,
       likedUser: [],
       publishTime: "2023-12-02T12:31+08:00",
       title: "西湖美得不顾我死活",

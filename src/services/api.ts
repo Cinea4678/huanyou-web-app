@@ -1,10 +1,11 @@
 import { doAxiosAsyncFull } from "@/utils/axios.ts"
 import axios from "axios"
 import HomeRecommendResort = API.HomeRecommend.Resort
-import TravelNote = API.HomeRecommend.TravelRecord
 import Resort = Model.Resort
 import ReGeoEncoding = AMap.ReGeo.ReGeoEncoding
 import TravelGuide = Model.TravelGuide
+import Page = API.Page
+import TravelRecord = Model.TravelRecord
 
 export async function GetCurrentUserInfo() {
   // 手动查询
@@ -17,19 +18,41 @@ export async function GetCurrentUserInfo() {
 }
 
 export async function GetHomeRecommendResort() {
-  return await doAxiosAsyncFull<HomeRecommendResort[]>(axios.get("/api/home-recommend/resort"), "获取推荐景点")
+  return (
+    await doAxiosAsyncFull<Page<HomeRecommendResort>>(
+      axios.get("/api/resort/recommend", {
+        params: {
+          page: 0,
+          size: 15,
+          sort: "likes,desc",
+        },
+      }),
+      "获取推荐景点",
+    )
+  ).content
 }
 
 export async function GetHomeRecommendTravelNotes() {
-  return await doAxiosAsyncFull<TravelNote[]>(axios.get("/api/home-recommend/travel-note"), "获取推荐旅行记录")
+  return (
+    await doAxiosAsyncFull<Page<TravelRecord>>(
+      axios.get("/api/record/recommend", {
+        params: {
+          page: 0,
+          size: 15,
+          sort: "likes,desc",
+        },
+      }),
+      "获取推荐旅行记录",
+    )
+  ).content
+}
+
+export async function GetResortGuides(id: string) {
+  return (await doAxiosAsyncFull<Page<TravelGuide>>(axios.get("/api/guide/by-resort", { params: { id: id, page: 0, size: 15, sort: "likes,desc" } }), "获取景区攻略")).content
 }
 
 export async function GetResort(id: string) {
   return await doAxiosAsyncFull<Resort>(axios.get("/api/resort", { params: { id: id } }), "获取景区信息")
-}
-
-export async function GetResortGuides(id: string) {
-  return await doAxiosAsyncFull<TravelGuide[]>(axios.get("/api/guide/by-resort-id", { params: { id: id } }), "获取景区攻略")
 }
 
 export async function GetTravelGuide(id: string) {
@@ -45,10 +68,7 @@ export function GetUserAvatarUrl(id: number) {
 }
 
 export async function CheckPhoneNumber(phoneNumber: string) {
-  return await doAxiosAsyncFull<null>(
-    axios.post("/api/user/register/check-phone", undefined, { params: { phoneNumber: phoneNumber } }),
-    "检查手机号可用",
-  )
+  return await doAxiosAsyncFull<null>(axios.post("/api/user/register/check-phone", undefined, { params: { phoneNumber: phoneNumber } }), "检查手机号可用")
 }
 
 export async function Register(user: Model.RegisteredUser) {

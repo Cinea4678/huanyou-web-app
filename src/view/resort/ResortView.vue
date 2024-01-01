@@ -29,16 +29,20 @@ const reloadWaterFlow = () => {
 const gotoNavi = () => {
   router.push(`/navi/${resortId.value}`)
 }
+
+const gotoGuide = (id: number) => {
+  router.push(`/guide/${id}`)
+}
 </script>
 
 <template>
   <div>
     <page-header title="景区" />
-    <image-gallery :image-list="resort.imageList" />
+    <image-gallery :image-list="resort.imageList ?? []" />
     <div class="bg-white pt-2 pb-4 px-3 rounded-b-2xl">
       <div class="font-bold text-xl">{{ resort.name }}</div>
       <div class="mt-0.5 font-normal text-sm text-gray-400">{{ resort.summary }}</div>
-      <small-map v-if="resort.address != ''" :loc="resort.address" class="mt-3 drop-shadow" @click="gotoNavi" />
+      <small-map v-if="resort.address != ''" :loc="resort.address ?? '0,0'" class="mt-3 drop-shadow" @click="gotoNavi" />
       <div class="mt-3 font-normal text-sm text-gray-600">{{ resort.description }}</div>
     </div>
     <div class="mt-4">
@@ -46,13 +50,7 @@ const gotoNavi = () => {
     </div>
     <div class="mt-4">
       <vue-flex-waterfall ref="waterfall" :col="2" :col-spacing="10">
-        <recommend-travel-guide
-          v-for="g in recommendGuides"
-          :key="g.id"
-          :guide="g"
-          type="guide"
-          @load="reloadWaterFlow"
-        />
+        <recommend-travel-guide v-for="g in recommendGuides" :key="g.id" :guide="g" type="guide" @load="reloadWaterFlow" @click="gotoGuide(g.id)" />
       </vue-flex-waterfall>
     </div>
   </div>
