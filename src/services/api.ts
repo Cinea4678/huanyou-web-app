@@ -83,6 +83,10 @@ export async function Login(username: string, password: string) {
   return await doAxiosAsyncFull<null>(axios.post("/api/login", form), "登录")
 }
 
+export async function GetUserInfo(id: number | string | null) {
+  return await doAxiosAsyncFull<Model.RegisteredUser>(axios.get("/api/user" + (id != null ? `/${id}` : "")), "查询用户信息")
+}
+
 /**
  * 分界线：
  * ↑↑↑ 我们的API

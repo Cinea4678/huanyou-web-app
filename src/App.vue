@@ -65,6 +65,11 @@ body:before {
   z-index: 0;
 }
 
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 .app-container {
   min-height: 100vh;
   position: relative;

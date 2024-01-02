@@ -8,6 +8,7 @@ const routes = [
   { path: "/record/:id", component: () => import("@/view/record/TravelRecord.vue") },
   { path: "/login", component: () => import("@/view/user/LoginView.vue") },
   { path: "/register", component: () => import("@/view/user/RegisterView.vue") },
+  { path: "/user", component: () => import("@/view/user/UserProfile.vue") },
 ]
 
 export default createRouter({
