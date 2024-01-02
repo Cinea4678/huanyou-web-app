@@ -32,6 +32,21 @@ export async function GetHomeRecommendResort() {
   ).content
 }
 
+export async function ListResort() {
+  return (
+    await doAxiosAsyncFull<Page<HomeRecommendResort>>(
+      axios.get("/api/resort/recommend", {
+        params: {
+          page: 0,
+          size: 500,
+          sort: "likes,desc",
+        },
+      }),
+      "获取景点信息",
+    )
+  ).content
+}
+
 export async function GetHomeRecommendTravelNotes() {
   return (
     await doAxiosAsyncFull<Page<TravelRecord>>(
@@ -56,15 +71,23 @@ export async function GetResort(id: string) {
 }
 
 export async function GetTravelGuide(id: string) {
-  return await doAxiosAsyncFull<TravelGuide>(axios.get("/api/guide", { params: { id: id } }), "获取旅行攻略")
+  return await doAxiosAsyncFull<Model.TravelGuide>(axios.get("/api/guide", { params: { id: id } }), "获取旅行攻略")
 }
 
 export async function GetTravelRecord(id: string) {
   return await doAxiosAsyncFull<Model.TravelRecord>(axios.get("/api/record", { params: { id: id } }), "获取旅行记录")
 }
 
+export async function GetTravelGuideByAuthor(authorId: string) {
+  return await doAxiosAsyncFull<Model.TravelGuide[]>(axios.get("/api/guide/by-user", { params: { id: authorId } }), "获取旅行攻略")
+}
+
+export async function GetTravelRecordByAuthor(authorId: string) {
+  return await doAxiosAsyncFull<Model.TravelRecord[]>(axios.get("/api/record/by-user", { params: { id: authorId } }), "获取旅行记录")
+}
+
 export function GetUserAvatarUrl(id: number) {
-  return `https://s.c.accr.cc/huanyou/mock-avatar-${id % 8}.jpg`
+  return `https://s.c.accr.cc/huanyou/mock-avatar-${id % 12}-new.jpg`
 }
 
 export async function CheckPhoneNumber(phoneNumber: string) {
@@ -85,6 +108,14 @@ export async function Login(username: string, password: string) {
 
 export async function GetUserInfo(id: number | string | null) {
   return await doAxiosAsyncFull<Model.RegisteredUser>(axios.get("/api/user" + (id != null ? `/${id}` : "")), "查询用户信息")
+}
+
+export async function SendTravelGuide(guide: TravelGuide) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/guide", guide), "发送旅行攻略")
+}
+
+export async function SendTravelRecord(record: TravelRecord) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/record", record), "发送旅行记录")
 }
 
 /**

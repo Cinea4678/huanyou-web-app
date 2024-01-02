@@ -3,4 +3,7 @@
   src: url("https://s.c.accr.cc/webfonts/SmileySans-Oblique.otf.woff2");
 }
 
-
+@font-face {
+  font-family: GenRyuMin;
+  src: url("https://s.c.accr.cc/webfonts/GenRyuMinJP-SB.otf.woff2");
+}

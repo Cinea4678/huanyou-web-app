@@ -9,6 +9,7 @@ const routes = [
   { path: "/login", component: () => import("@/view/user/LoginView.vue") },
   { path: "/register", component: () => import("@/view/user/RegisterView.vue") },
   { path: "/user", component: () => import("@/view/user/UserProfile.vue") },
+  { path: "/new", component: () => import("@/view/new/NewPost.vue") },
 ]
 
 export default createRouter({

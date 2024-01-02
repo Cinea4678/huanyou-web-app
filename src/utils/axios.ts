@@ -37,12 +37,7 @@ function handleError(err: AxiosError, operation: string) {
  * @param callback 成功的回调
  * @param allFinishCallback 所有操作结束后的回调
  */
-export function doAxios(
-  result: Promise<AxiosResponse<Return>>,
-  operation: string,
-  callback: (data: any) => void,
-  allFinishCallback?: () => void,
-) {
+export function doAxios(result: Promise<AxiosResponse<Return>>, operation: string, callback: (data: any) => void, allFinishCallback?: () => void) {
   result
     .then((res: AxiosResponse) => {
       if (res.data.code && res.data.code === 10000) {
@@ -50,6 +45,9 @@ export function doAxios(
       } else {
         if (res.data.code) {
           message.warning(`${operation}失败：${res.data.msg}`).then()
+          if (res.data.code == 4001) {
+            router.push("/login").then(() => location.reload())
+          }
         } else {
           message.warning(`${operation}失败：服务器内部错误`).then()
         }
@@ -74,12 +72,7 @@ export function doAxios(
  * @param callback 成功的回调
  * @param allFinishCallback 所有操作结束后的回调
  */
-export async function doAxiosAsync(
-  result: Promise<AxiosResponse<Return>>,
-  operation: string,
-  callback: (data: any) => Promise<void>,
-  allFinishCallback?: () => Promise<void>,
-) {
+export async function doAxiosAsync(result: Promise<AxiosResponse<Return>>, operation: string, callback: (data: any) => Promise<void>, allFinishCallback?: () => Promise<void>) {
   try {
     const res = await result
     if (res.data.code && res.data.code === 10000) {
@@ -87,6 +80,9 @@ export async function doAxiosAsync(
     } else {
       if (res.data.code) {
         message.warning(`${operation}失败：${res.data.msg}`).then()
+        if (res.data.code == 4001) {
+          router.push("/login").then(() => location.reload())
+        }
       } else {
         message.warning(`${operation}失败：服务器内部错误`).then()
       }
@@ -115,6 +111,9 @@ export async function doAxiosAsyncFull<T>(result: Promise<AxiosResponse<Return>>
     } else {
       if (res.data.code) {
         message.warning(`${operation}失败：${res.data.msg}`).then()
+        if (res.data.code == 4001) {
+          router.push("/login").then(() => location.reload())
+        }
       } else {
         message.warning(`${operation}失败：服务器内部错误`).then()
       }

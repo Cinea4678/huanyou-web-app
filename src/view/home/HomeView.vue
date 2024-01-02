@@ -65,6 +65,9 @@ const gotoNote = (id: number) => {
       <recommend-travel-note v-for="d in homeRecommendTravelNotes" :key="d.id" :note="d" type="note" @load="reloadWaterFlow" @click="gotoNote(d.id)" />
     </vue-flex-waterfall>
   </div>
+  <a-float-button type="primary">
+    <template #icon> <i class="fa-solid fa-pencil"></i> </template>
+  </a-float-button>
 </template>
 
 <style scoped>

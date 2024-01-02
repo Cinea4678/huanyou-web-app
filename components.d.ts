@@ -7,16 +7,29 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AAvatar: typeof import('ant-design-vue/es')['Avatar']
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADivider: typeof import('ant-design-vue/es')['Divider']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
+    AFloatButton: typeof import('ant-design-vue/es')['FloatButton']
     AInput: typeof import('ant-design-vue/es')['Input']
+    AList: typeof import('ant-design-vue/es')['List']
+    AListItem: typeof import('ant-design-vue/es')['ListItem']
+    AListItemMeta: typeof import('ant-design-vue/es')['ListItemMeta']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ASegmented: typeof import('ant-design-vue/es')['Segmented']
     ASteps: typeof import('ant-design-vue/es')['Steps']
+    ATabPane: typeof import('ant-design-vue/es')['TabPane']
+    ATabs: typeof import('ant-design-vue/es')['Tabs']
+    ATag: typeof import('ant-design-vue/es')['Tag']
+    ATextarea: typeof import('ant-design-vue/es')['Textarea']
+    AUpload: typeof import('ant-design-vue/es')['Upload']
     CategoryButton: typeof import('./src/components/home/CategoryButton.vue')['default']
+    ChooseResortModal: typeof import('./src/components/new/ChooseResortModal.vue')['default']
     CommentComponent: typeof import('./src/components/comment/CommentComponent.vue')['default']
     GuideImageGallery: typeof import('./src/components/guide/GuideImageGallery.vue')['default']
     HeartIcon: typeof import('./src/components/guide/HeartIcon.vue')['default']
@@ -29,6 +42,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SmallMap: typeof import('./src/components/resort/SmallMap.vue')['default']
     SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
+    TravelPostItem: typeof import('./src/components/user/TravelPostItem.vue')['default']
     WriteComment: typeof import('./src/components/comment/WriteComment.vue')['default']
   }
 }
