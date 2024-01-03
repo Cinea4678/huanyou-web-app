@@ -39,7 +39,7 @@ watch(props, () => {
 </script>
 
 <template>
-  <div class="relative h-[70px] rounded-2xl overflow-clip border border-black/20">
+  <div class="relative h-[70px] rounded-2xl overflow-clip border border-solid border-black/20">
     <img alt="" :src="GetStaticMapUrl(locOffset, '11', '600*100', `mid,0x008000,:${loc}`)" class="h-full w-full object-cover" />
     <div class="absolute top-0 bottom-0 left-0 w-[70%]" style="background: linear-gradient(to right, #ffffffff 40%, #ffffff00)">
       <div v-if="reGeoData.status == '1'" class="pt-3 pl-3 flex gap-2.5 items-center">

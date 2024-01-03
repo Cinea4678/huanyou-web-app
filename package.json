@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "deploy": "vite build && tar cvf dist.tar.gz dist && scp dist.tar.gz root@huanyou.accr.cc:~/www && ssh root@huanyou.accr.cc \"cd www && tar xvf dist.tar.gz\" ",
     "preview": "vite preview"
   },
   "dependencies": {
