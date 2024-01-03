@@ -63,7 +63,19 @@ export async function GetHomeRecommendTravelNotes() {
 }
 
 export async function GetResortGuides(id: string) {
-  return (await doAxiosAsyncFull<Page<TravelGuide>>(axios.get("/api/guide/by-resort", { params: { id: id, page: 0, size: 15, sort: "likes,desc" } }), "获取景区攻略")).content
+  return (
+    await doAxiosAsyncFull<Page<TravelGuide>>(
+      axios.get("/api/guide/by-resort", {
+        params: {
+          id: id,
+          page: 0,
+          size: 15,
+          sort: "likes,desc",
+        },
+      }),
+      "获取景区攻略",
+    )
+  ).content
 }
 
 export async function GetResort(id: string) {
@@ -116,6 +128,50 @@ export async function SendTravelGuide(guide: TravelGuide) {
 
 export async function SendTravelRecord(record: TravelRecord) {
   return await doAxiosAsyncFull<null>(axios.post("/api/record", record), "发送旅行记录")
+}
+
+export async function GetUserOwnedFavorites(userId: string) {
+  return await doAxiosAsyncFull<Model.Favorites[]>(axios.get("/api/favorites/user", { params: { userId } }), "获取用户收藏夹")
+}
+
+export async function GetUserFollowingFavorites(userId: string) {
+  return await doAxiosAsyncFull<Model.Favorites[]>(axios.get("/api/favorites/following", { params: { userId } }), "获取用户关注收藏夹")
+}
+
+export async function GetFavorites(id: string) {
+  return await doAxiosAsyncFull<Model.Favorites>(axios.get("/api/favorites", { params: { id } }), "获取收藏夹信息")
+}
+
+export async function LikeRecord(id: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/record/like", undefined, { params: { id } }), "点赞")
+}
+
+export async function CancelLikeRecord(id: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/record/cancel-like", undefined, { params: { id } }), "取消点赞")
+}
+
+export async function LikeGuide(id: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/guide/like", undefined, { params: { id } }), "点赞")
+}
+
+export async function CancelLikeGuide(id: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/guide/cancel-like", undefined, { params: { id } }), "取消点赞")
+}
+
+export async function FavoritesRecord(id: string, favoritesId: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/record/favorite", undefined, { params: { id, favoritesId } }), "收藏")
+}
+
+export async function CancelFavoritesRecord(id: string, favoritesId: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/record/cancel-favorite", undefined, { params: { id, favoritesId } }), "取消收藏")
+}
+
+export async function FavoritesGuide(id: string, favoritesId: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/guide/favorite", undefined, { params: { id, favoritesId } }), "收藏")
+}
+
+export async function CancelFavoritesGuide(id: string, favoritesId: string) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/guide/cancel-favorite", undefined, { params: { id, favoritesId } }), "取消收藏")
 }
 
 /**

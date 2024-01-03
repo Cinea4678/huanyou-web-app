@@ -1,15 +1,17 @@
 <script lang="ts" setup>
 import { computed, h, onMounted, ref } from "vue"
-import { useRoute } from "vue-router"
-import { GetTravelGuideByAuthor, GetTravelRecordByAuthor, GetUserAvatarUrl, GetUserInfo } from "@/services/api.ts"
+import { useRoute, useRouter } from "vue-router"
+import { GetTravelGuideByAuthor, GetTravelRecordByAuthor, GetUserAvatarUrl, GetUserFollowingFavorites, GetUserInfo, GetUserOwnedFavorites } from "@/services/api.ts"
 import dayjs from "dayjs"
 import { useStore } from "@/utils/store.ts"
+import FavoritesContent from "@/components/user/FavoritesContent.vue"
 
-import { Empty as AEmpty } from "ant-design-vue"
+import { Empty as AEmpty, Modal } from "ant-design-vue"
 import RegisteredUser = Model.RegisteredUser
 
 const store = useStore()
 const route = useRoute()
+const router = useRouter()
 
 const userId = computed(() => {
   let c = route.query["id"] ?? null
@@ -25,6 +27,9 @@ const userInfoBoxBg = ref<HTMLDivElement | null>(null)
 
 const userRecords = ref<Model.TravelRecord[]>([])
 const userGuides = ref<Model.TravelGuide[]>([])
+
+const favoritesOwned = ref<Model.Favorites[]>([])
+const favoritesFollowing = ref<Model.Favorites[]>([])
 
 const userAvatar = computed(() => GetUserAvatarUrl(user.value?.id ?? 0))
 const currentUserId = computed<number | undefined>(() => {
@@ -62,7 +67,22 @@ onMounted(() => {
   if (currentUserId.value) {
     GetTravelRecordByAuthor(currentUserId.value.toString()).then((res) => (userRecords.value = res))
     GetTravelGuideByAuthor(currentUserId.value.toString()).then((res) => (userGuides.value = res))
+    GetUserOwnedFavorites(currentUserId.value.toString()).then((res) => (favoritesOwned.value = res))
+    GetUserFollowingFavorites(currentUserId.value.toString()).then((res) => (favoritesFollowing.value = res))
   }
+
+  Modal.info({
+    title: "ceui",
+    content: h(FavoritesContent, {
+      favoritesId: "4",
+      onGoto(url: string) {
+        console.log(url)
+        router.push(url).then(() => {
+          Modal.destroyAll()
+        })
+      },
+    }),
+  })
 })
 </script>
 
@@ -123,6 +143,10 @@ onMounted(() => {
           <div v-else class="grid grid-cols-2 gap-1.5">
             <travel-post-item v-for="r in userGuides" :key="r.id" :post="r" type="guide" />
           </div>
+        </a-tab-pane>
+        <a-tab-pane key="3" tab="收藏">
+          <favorites-list :data="favoritesOwned" name="创建的收藏夹" />
+          <favorites-list :data="favoritesFollowing" name="关注的收藏夹" />
         </a-tab-pane>
       </a-tabs>
     </div>

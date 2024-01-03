@@ -1,9 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router"
-import { computed, ref } from "vue"
-import { GetTravelGuide, GetTravelRecord, GetUserAvatarUrl } from "@/services/api.ts"
+import { computed, h, ref } from "vue"
+import { CancelLikeRecord, FavoritesRecord, GetTravelRecord, GetUserAvatarUrl, LikeRecord } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
 import dayjs from "dayjs"
+import { store } from "@/utils/store.ts"
+import ChooseFavoritesModal from "@/components/guide/ChooseFavoritesModal.vue"
+import { message, Modal } from "ant-design-vue"
 
 const route = useRoute()
 const router = useRouter()
@@ -11,6 +14,38 @@ const guideId = computed(() => route.params["id"])
 
 const record = ref<Model.TravelRecord>({ id: 0 })
 record.value = await GetTravelRecord(<string>guideId.value)
+
+const liked = ref((record.value?.likedUser?.findIndex((v) => v.id == store.state.user.id) ?? -1) >= 0)
+
+const handleLikeToggle = () => {
+  if (!liked.value) {
+    LikeRecord(record.value.id.toString())
+    liked.value = true
+    if (record.value.likes) {
+      record.value.likes++
+    }
+  } else {
+    CancelLikeRecord(record.value.id.toString())
+    liked.value = false
+    if (record.value.likes) {
+      record.value.likes--
+    }
+  }
+}
+
+const handleFavorite = () => {
+  let modal = Modal.info({
+    title: "选择收藏夹",
+    content: h(ChooseFavoritesModal, {
+      curUserId: store.state.user.id,
+      async onChoose(id: number) {
+        await FavoritesRecord(record.value.id.toString(), id.toString())
+        message.success("成功").then()
+        modal.destroy()
+      },
+    }),
+  })
+}
 </script>
 
 <template>
@@ -29,7 +64,7 @@ record.value = await GetTravelRecord(<string>guideId.value)
       <div class="text-xs text-gray-500 mt-3">{{ dayjs(record.publishTime).format("LL HH:mm") }}</div>
       <a-divider />
       <div class="mx-2">
-        <a-button size="small" type="dashed" block>
+        <a-button block size="small" type="dashed">
           <i class="fa-solid fa-plus mx-1"></i>
           发表新评论
         </a-button>
@@ -46,11 +81,11 @@ record.value = await GetTravelRecord(<string>guideId.value)
     <div class="fixed bottom-2 mt-3 py-1 border border-solid border-black/10 rounded-2xl bg-white/80 backdrop-blur">
       <div class="flex gap-5 h-full py-2 px-4 items-center">
         <div class="flex gap-1 items-center">
-          <heart-icon />
+          <heart-icon :active="liked" @click="handleLikeToggle" />
           <span class="font-bold text-sm">{{ record.likes }}</span>
         </div>
         <div class="flex gap-1 items-center">
-          <i class="fa-regular fa-star fa-xl"></i>
+          <div @click="handleFavorite"><i class="fa-regular fa-star fa-xl"></i></div>
           <span class="font-bold text-sm">{{ record.favorites }}</span>
         </div>
       </div>

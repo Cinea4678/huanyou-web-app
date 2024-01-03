@@ -3,6 +3,10 @@ import { h, onMounted, reactive, ref } from "vue"
 import { SegmentedOption } from "ant-design-vue/es/segmented/src/segmented"
 import { message, Modal, UploadProps } from "ant-design-vue"
 import ChooseResortModal from "@/components/new/ChooseResortModal.vue"
+import { SendTravelGuide, SendTravelRecord } from "@/services/api.ts"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
 
 const mode = ref<"record" | "guide">("record")
 const post = ref<Model.TravelGuide>({ id: 0 })
@@ -75,6 +79,16 @@ const handleSend = async () => {
   }
 
   post.value.images = fileList.value.map((v) => v.response.data)
+
+  if (mode.value == "guide") {
+    await SendTravelGuide(post.value)
+    message.success("发送成功")
+    await router.push("/")
+  } else {
+    await SendTravelRecord(<Model.TravelRecord>post.value)
+    message.success("发送成功")
+    await router.push("/")
+  }
 }
 
 onMounted(() => {})

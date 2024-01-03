@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="h-[265px] w-full rounded shadow">
+  <div class="pb-2 w-full rounded shadow overflow-clip">
     <img :src="post.images![0]" alt="" class="h-[200px] w-full object-cover" />
     <div class="font-normal text-xs px-2 line-clamp-2">
       {{ post.title }}

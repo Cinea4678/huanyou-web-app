@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
 
 const routes = [
   { path: "/", component: () => import("@/view/home/HomeView.vue") },
@@ -13,7 +13,7 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   scrollBehavior() {
     return { top: 0 }
