@@ -26,14 +26,21 @@ onMounted(() => {
     }"
   >
     <div class="app-container">
-      <suspense>
-        <router-view />
-        <template #fallback>
-          <div class="flex w-full h-full justify-center items-center">
-            <svg-icon name="InfLoading" />
-          </div>
+      <router-view v-slot="{ Component }">
+        <template v-if="Component">
+          <Suspense :timeout="0">
+            <!-- 主要内容 -->
+            <component :is="Component"></component>
+
+            <!-- 加载中状态 -->
+            <template #fallback>
+              <div class="flex w-full h-[80vh] justify-center items-center">
+                <svg-icon name="InfLoading" size="100px" />
+              </div>
+            </template>
+          </Suspense>
         </template>
-      </suspense>
+      </router-view>
     </div>
   </a-config-provider>
 </template>
@@ -68,6 +75,10 @@ body:before {
 p {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+h4 {
+  margin: 0;
 }
 
 .app-container {

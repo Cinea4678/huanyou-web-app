@@ -1,21 +1,25 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router"
 import { computed, h, ref } from "vue"
-import { CancelLikeRecord, FavoritesRecord, GetTravelRecord, GetUserAvatarUrl, LikeRecord } from "@/services/api.ts"
+import { CancelLikeRecord, DeleteRecord, FavoritesRecord, GetTravelRecord, GetUserAvatarUrl, LikeRecord } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
 import dayjs from "dayjs"
-import { store } from "@/utils/store.ts"
+import { store, useStore } from "@/utils/store.ts"
 import ChooseFavoritesModal from "@/components/guide/ChooseFavoritesModal.vue"
 import { message, Modal } from "ant-design-vue"
+import { Delete } from "@element-plus/icons-vue"
 
+const store = useStore()
 const route = useRoute()
 const router = useRouter()
 const guideId = computed(() => route.params["id"])
 
 const record = ref<Model.TravelRecord>({ id: 0 })
-record.value = await GetTravelRecord(<string>guideId.value)
+const liked = ref((record.value?.likedUser?.findIndex((v) => v.id == store.state.user?.id) ?? -1) >= 0)
 
-const liked = ref((record.value?.likedUser?.findIndex((v) => v.id == store.state.user.id) ?? -1) >= 0)
+const canEdit = computed(() => store.state.user?.id == record.value.author?.id)
+
+record.value = await GetTravelRecord(<string>guideId.value)
 
 const handleLikeToggle = () => {
   if (!liked.value) {
@@ -46,6 +50,17 @@ const handleFavorite = () => {
     }),
   })
 }
+
+const handleDelete = () => {
+  Modal.confirm({
+    title: "确认要删除吗",
+    content: "删除后将无法恢复",
+    async onOk() {
+      await DeleteRecord(record.value.id.toString())
+      router.push("/").then()
+    },
+  })
+}
 </script>
 
 <template>
@@ -61,8 +76,13 @@ const handleFavorite = () => {
         </div>
         <div class="text-[0.9em] font-semibold">{{ record.author!.name }}</div>
       </div>
-      <div class="text-xs text-gray-500 mt-3">{{ dayjs(record.publishTime).format("LL HH:mm") }}</div>
+      <div class="text-xs text-gray-500 mt-3 flex gap-2">
+        {{ dayjs(record.publishTime).format("LL HH:mm") }}
+        <a v-if="canEdit" class="text-red-500" @click="handleDelete">删除</a>
+      </div>
+
       <a-divider />
+
       <div class="mx-2">
         <a-button block size="small" type="dashed">
           <i class="fa-solid fa-plus mx-1"></i>

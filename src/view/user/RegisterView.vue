@@ -9,7 +9,7 @@ import { useRouter } from "vue-router"
 const router = useRouter()
 const store = useStore()
 
-const step = ref(2)
+const step = ref(0)
 const maxStep = ref(2)
 
 const allowNext = ref([false, false, false])

@@ -1,6 +1,5 @@
 import { doAxiosAsyncFull } from "@/utils/axios.ts"
 import axios from "axios"
-import HomeRecommendResort = API.HomeRecommend.Resort
 import Resort = Model.Resort
 import ReGeoEncoding = AMap.ReGeo.ReGeoEncoding
 import TravelGuide = Model.TravelGuide
@@ -19,7 +18,7 @@ export async function GetCurrentUserInfo() {
 
 export async function GetHomeRecommendResort() {
   return (
-    await doAxiosAsyncFull<Page<HomeRecommendResort>>(
+    await doAxiosAsyncFull<Page<Model.Resort>>(
       axios.get("/api/resort/recommend", {
         params: {
           page: 0,
@@ -34,7 +33,7 @@ export async function GetHomeRecommendResort() {
 
 export async function ListResort() {
   return (
-    await doAxiosAsyncFull<Page<HomeRecommendResort>>(
+    await doAxiosAsyncFull<Page<Model.Resort>>(
       axios.get("/api/resort/recommend", {
         params: {
           page: 0,
@@ -43,6 +42,36 @@ export async function ListResort() {
         },
       }),
       "获取景点信息",
+    )
+  ).content
+}
+
+export async function ListGuides() {
+  return (
+    await doAxiosAsyncFull<Page<Model.TravelGuide>>(
+      axios.get("/api/guide/recommend", {
+        params: {
+          page: 0,
+          size: 500,
+          sort: "likes,desc",
+        },
+      }),
+      "获取旅行攻略信息",
+    )
+  ).content
+}
+
+export async function ListRecords() {
+  return (
+    await doAxiosAsyncFull<Page<Model.TravelRecord>>(
+      axios.get("/api/record/recommend", {
+        params: {
+          page: 0,
+          size: 500,
+          sort: "likes,desc",
+        },
+      }),
+      "获取旅行记录信息",
     )
   ).content
 }
@@ -172,6 +201,14 @@ export async function FavoritesGuide(id: string, favoritesId: string) {
 
 export async function CancelFavoritesGuide(id: string, favoritesId: string) {
   return await doAxiosAsyncFull<null>(axios.post("/api/guide/cancel-favorite", undefined, { params: { id, favoritesId } }), "取消收藏")
+}
+
+export async function DeleteGuide(id: string) {
+  return await doAxiosAsyncFull<null>(axios.delete("/api/guide", { params: { id } }), "删除旅行攻略")
+}
+
+export async function DeleteRecord(id: string) {
+  return await doAxiosAsyncFull<null>(axios.delete("/api/record", { params: { id } }), "删除旅行记录")
 }
 
 /**

@@ -61,6 +61,26 @@ const userAge = (user: RegisteredUser): number => {
 
 user.value = await GetUserInfo(userId.value)
 
+const handleCheckFav = (favId: number) => {
+  Modal.info({
+    title: "收藏夹内容",
+    content: h(FavoritesContent, {
+      favoritesId: favId.toString(),
+      userId: store.state.user?.id,
+      onGoto(url: string) {
+        console.log(url)
+        router.push(url).then(() => {
+          Modal.destroyAll()
+        })
+      },
+    }),
+  })
+}
+
+const handleGotoPost = (id: number, type: string) => {
+  router.push(`/${type}/${id}`).then()
+}
+
 onMounted(() => {
   userInfoBoxBg.value!.style.background = `url("${userAvatar.value}") center`
 
@@ -70,19 +90,6 @@ onMounted(() => {
     GetUserOwnedFavorites(currentUserId.value.toString()).then((res) => (favoritesOwned.value = res))
     GetUserFollowingFavorites(currentUserId.value.toString()).then((res) => (favoritesFollowing.value = res))
   }
-
-  Modal.info({
-    title: "ceui",
-    content: h(FavoritesContent, {
-      favoritesId: "4",
-      onGoto(url: string) {
-        console.log(url)
-        router.push(url).then(() => {
-          Modal.destroyAll()
-        })
-      },
-    }),
-  })
 })
 </script>
 
@@ -135,18 +142,18 @@ onMounted(() => {
         <a-tab-pane key="1" tab="记录">
           <component v-if="userRecords.length == 0" :is="none('旅行记录')" />
           <div v-else class="grid grid-cols-2 gap-1.5">
-            <travel-post-item v-for="r in userRecords" :key="r.id" :post="r" type="record" />
+            <travel-post-item v-for="r in userRecords" :key="r.id" :post="r" type="record" @click="handleGotoPost(r.id, 'record')" />
           </div>
         </a-tab-pane>
         <a-tab-pane key="2" tab="攻略">
           <component v-if="userGuides.length == 0" :is="none('旅行攻略')" />
           <div v-else class="grid grid-cols-2 gap-1.5">
-            <travel-post-item v-for="r in userGuides" :key="r.id" :post="r" type="guide" />
+            <travel-post-item v-for="r in userGuides" :key="r.id" :post="r" type="guide" @click="handleGotoPost(r.id, 'guide')" />
           </div>
         </a-tab-pane>
         <a-tab-pane key="3" tab="收藏">
-          <favorites-list :data="favoritesOwned" name="创建的收藏夹" />
-          <favorites-list :data="favoritesFollowing" name="关注的收藏夹" />
+          <favorites-list :data="favoritesOwned" name="创建的收藏夹" @choose="handleCheckFav" />
+          <favorites-list :data="favoritesFollowing" name="关注的收藏夹" @choose="handleCheckFav" />
         </a-tab-pane>
       </a-tabs>
     </div>

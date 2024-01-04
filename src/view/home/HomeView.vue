@@ -30,6 +30,8 @@ const reloadWaterFlow = () => {
 const gotoPersonalCenter = () => {
   if (!loggedIn.value) {
     router.push("/login").then()
+  } else {
+    router.push("/user").then()
   }
 }
 
@@ -55,9 +57,9 @@ const gotoNote = (id: number) => {
     </a-carousel>
   </div>
   <div class="button-card">
-    <category-button title="景点景区" icon="ScenicSpot" />
-    <category-button title="旅行记录" icon="TravelNote" />
-    <category-button title="旅行攻略" icon="TravelGuide" />
+    <category-button title="景点景区" icon="ScenicSpot" @click="router.push('/resorts')" />
+    <category-button title="旅行记录" icon="TravelNote" @click="router.push('/records')" />
+    <category-button title="旅行攻略" icon="TravelGuide" @click="router.push('/guides')" />
     <category-button :title="loggedIn ? '个人中心' : '登录注册'" icon="PersonalCenter" @click="gotoPersonalCenter" />
   </div>
   <div class="mt-4 mx-1">
@@ -65,7 +67,7 @@ const gotoNote = (id: number) => {
       <recommend-travel-note v-for="d in homeRecommendTravelNotes" :key="d.id" :note="d" type="note" @load="reloadWaterFlow" @click="gotoNote(d.id)" />
     </vue-flex-waterfall>
   </div>
-  <a-float-button type="primary">
+  <a-float-button type="primary" @click="router.push('/new')">
     <template #icon> <i class="fa-solid fa-pencil"></i> </template>
   </a-float-button>
 </template>

@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router"
-import { computed, ref } from "vue"
+import { computed, h, ref } from "vue"
 import { DefaultTravelGuide } from "@/services/default.ts"
-import { GetTravelGuide, GetUserAvatarUrl } from "@/services/api.ts"
+import { CancelLikeGuide, FavoritesGuide, GetTravelGuide, GetUserAvatarUrl, LikeGuide } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
 import dayjs from "dayjs"
 import TravelGuide = Model.TravelGuide
+import { store } from "@/utils/store.ts"
+import { message, Modal } from "ant-design-vue"
+import ChooseFavoritesModal from "@/components/guide/ChooseFavoritesModal.vue"
 
 const route = useRoute()
 const router = useRouter()
@@ -13,6 +16,38 @@ const guideId = computed(() => route.params["id"])
 
 const guide = ref<TravelGuide>(DefaultTravelGuide)
 guide.value = await GetTravelGuide(<string>guideId.value)
+
+const liked = ref((guide.value?.likedUser?.findIndex((v) => v.id == store.state.user?.id) ?? -1) >= 0)
+
+const handleLikeToggle = () => {
+  if (!liked.value) {
+    LikeGuide(guide.value.id.toString())
+    liked.value = true
+    if (guide.value.likes) {
+      guide.value.likes++
+    }
+  } else {
+    CancelLikeGuide(guide.value.id.toString())
+    liked.value = false
+    if (guide.value.likes) {
+      guide.value.likes--
+    }
+  }
+}
+
+const handleFavorite = () => {
+  let modal = Modal.info({
+    title: "选择收藏夹",
+    content: h(ChooseFavoritesModal, {
+      curUserId: store.state.user.id,
+      async onChoose(id: number) {
+        await FavoritesGuide(guide.value.id.toString(), id.toString())
+        message.success("成功").then()
+        modal.destroy()
+      },
+    }),
+  })
+}
 </script>
 
 <template>
@@ -45,11 +80,11 @@ guide.value = await GetTravelGuide(<string>guideId.value)
     <div class="fixed bottom-2 mt-3 py-1 border border-solid border-black/10 rounded-2xl bg-white/80 backdrop-blur">
       <div class="flex gap-5 h-full py-2 px-4 items-center">
         <div class="flex gap-1 items-center">
-          <heart-icon />
+          <heart-icon :active="liked" @click="handleLikeToggle" />
           <span class="font-bold text-sm">{{ guide.likes }}</span>
         </div>
         <div class="flex gap-1 items-center">
-          <i class="fa-regular fa-star fa-xl"></i>
+          <div @click="handleFavorite"><i class="fa-regular fa-star fa-xl"></i></div>
           <span class="font-bold text-sm">{{ guide.favorites }}</span>
         </div>
       </div>

@@ -10,6 +10,9 @@ const routes = [
   { path: "/register", component: () => import("@/view/user/RegisterView.vue") },
   { path: "/user", component: () => import("@/view/user/UserProfile.vue") },
   { path: "/new", component: () => import("@/view/new/NewPost.vue") },
+  { path: "/resorts", component: () => import("@/view/resort/ResortList.vue") },
+  { path: "/guides", component: () => import("@/view/guide/GuideList.vue") },
+  { path: "/records", component: () => import("@/view/record/RecordList.vue") },
 ]
 
 export default createRouter({
