@@ -2,22 +2,25 @@
 import { useRoute, useRouter } from "vue-router"
 import { computed, h, ref } from "vue"
 import { DefaultTravelGuide } from "@/services/default.ts"
-import { CancelLikeGuide, FavoritesGuide, GetTravelGuide, GetUserAvatarUrl, LikeGuide } from "@/services/api.ts"
+import { CancelLikeGuide, DeleteGuide, FavoritesGuide, GetTravelGuide, GetUserAvatarUrl, LikeGuide, SendComment } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
 import dayjs from "dayjs"
 import TravelGuide = Model.TravelGuide
 import { store } from "@/utils/store.ts"
 import { message, Modal } from "ant-design-vue"
 import ChooseFavoritesModal from "@/components/guide/ChooseFavoritesModal.vue"
+import WriteComment from "@/components/comment/WriteComment.vue"
 
 const route = useRoute()
 const router = useRouter()
 const guideId = computed(() => route.params["id"])
 
 const guide = ref<TravelGuide>(DefaultTravelGuide)
-guide.value = await GetTravelGuide(<string>guideId.value)
 
 const liked = ref((guide.value?.likedUser?.findIndex((v) => v.id == store.state.user?.id) ?? -1) >= 0)
+const canEdit = computed(() => store.state.user?.id == guide.value.author?.id)
+
+guide.value = await GetTravelGuide(<string>guideId.value)
 
 const handleLikeToggle = () => {
   if (!liked.value) {
@@ -48,6 +51,48 @@ const handleFavorite = () => {
     }),
   })
 }
+
+const handleDelete = () => {
+  Modal.confirm({
+    title: "确认要删除吗",
+    content: "删除后将无法恢复",
+    async onOk() {
+      await DeleteGuide(guide.value.id.toString())
+      router.push("/").then()
+    },
+  })
+}
+
+const handleNewComment = () => {
+  if (!store.state.loggedIn) {
+    message.warn("请先登录后再评论").then()
+    router.push("/login")
+  }
+
+  let comment = ""
+  let modal = Modal.info({
+    title: "撰写新评论",
+    content: h(WriteComment, {
+      onUpdate(c: string) {
+        comment = c
+      },
+    }),
+    okText: "发送",
+    async onOk() {
+      if (comment.length == 0) {
+        message.warn("不能发送空评论")
+        throw new Error("Invalid Comment")
+      }
+
+      let commentObject = { author: { id: store.state.user?.id ?? 0 }, content: comment, id: 0 } satisfies Model.Comment
+
+      await SendComment(commentObject, record.value.id, false)
+      message.success("发送成功")
+      location.reload()
+      modal.destroy()
+    },
+  })
+}
 </script>
 
 <template>
@@ -63,10 +108,15 @@ const handleFavorite = () => {
         </div>
         <div class="text-[0.9em] font-semibold">{{ guide.author!.name }}</div>
       </div>
-      <div class="text-xs text-gray-500 mt-3">{{ dayjs(guide.publishTime).format("LL HH:mm") }}</div>
+      <div class="text-xs text-gray-500 mt-3 flex gap-2">
+        {{ dayjs(guide.publishTime).format("LL HH:mm") }}
+        <a v-if="canEdit" class="text-red-500" @click="handleDelete">删除</a>
+      </div>
+
       <a-divider />
+
       <div class="mx-2">
-        <a-button block size="small" type="dashed">
+        <a-button block size="small" type="dashed" @click="handleNewComment">
           <i class="fa-solid fa-plus mx-1"></i>
           发表新评论
         </a-button>

@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router"
 import { computed, h, ref } from "vue"
-import { CancelLikeRecord, DeleteRecord, FavoritesRecord, GetTravelRecord, GetUserAvatarUrl, LikeRecord } from "@/services/api.ts"
+import { CancelLikeRecord, DeleteRecord, FavoritesRecord, GetTravelRecord, GetUserAvatarUrl, LikeRecord, SendComment } from "@/services/api.ts"
 import HeartIcon from "@/components/guide/HeartIcon.vue"
 import dayjs from "dayjs"
-import { store, useStore } from "@/utils/store.ts"
+import { useStore } from "@/utils/store.ts"
 import ChooseFavoritesModal from "@/components/guide/ChooseFavoritesModal.vue"
 import { message, Modal } from "ant-design-vue"
-import { Delete } from "@element-plus/icons-vue"
+
+import WriteComment from "@/components/comment/WriteComment.vue"
 
 const store = useStore()
 const route = useRoute()
@@ -61,6 +62,37 @@ const handleDelete = () => {
     },
   })
 }
+
+const handleNewComment = () => {
+  if (!store.state.loggedIn) {
+    message.warn("请先登录后再评论").then()
+    router.push("/login")
+  }
+
+  let comment = ""
+  let modal = Modal.info({
+    title: "撰写新评论",
+    content: h(WriteComment, {
+      onUpdate(c: string) {
+        comment = c
+      },
+    }),
+    okText: "发送",
+    async onOk() {
+      if (comment.length == 0) {
+        message.warn("不能发送空评论")
+        throw new Error("Invalid Comment")
+      }
+
+      let commentObject = { author: { id: store.state.user?.id ?? 0 }, content: comment, id: 0 } satisfies Model.Comment
+
+      await SendComment(commentObject, record.value.id, false)
+      message.success("发送成功")
+      location.reload()
+      modal.destroy()
+    },
+  })
+}
 </script>
 
 <template>
@@ -84,7 +116,7 @@ const handleDelete = () => {
       <a-divider />
 
       <div class="mx-2">
-        <a-button block size="small" type="dashed">
+        <a-button block size="small" type="dashed" @click="handleNewComment">
           <i class="fa-solid fa-plus mx-1"></i>
           发表新评论
         </a-button>

@@ -211,6 +211,14 @@ export async function DeleteRecord(id: string) {
   return await doAxiosAsyncFull<null>(axios.delete("/api/record", { params: { id } }), "删除旅行记录")
 }
 
+export async function SendComment(comment: Model.Comment, to: number, toGuide: boolean) {
+  return await doAxiosAsyncFull<null>(axios.post("/api/comment", comment, { params: { to, toGuide } }), "发送评论")
+}
+
+export async function DeleteComment(commentId: number) {
+  return await doAxiosAsyncFull<null>(axios.delete("/api/comment", { params: { commentId } }), "删除评论")
+}
+
 /**
  * 分界线：
  * ↑↑↑ 我们的API

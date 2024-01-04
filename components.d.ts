@@ -13,6 +13,7 @@ declare module 'vue' {
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADivider: typeof import('ant-design-vue/es')['Divider']
+    ADrawer: typeof import('ant-design-vue/es')['Drawer']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
     AFloatButton: typeof import('ant-design-vue/es')['FloatButton']
     AInput: typeof import('ant-design-vue/es')['Input']

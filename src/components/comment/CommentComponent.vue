@@ -1,11 +1,29 @@
 <script setup lang="ts">
 import Comment = Model.Comment
 import dayjs from "dayjs"
-import { GetUserAvatarUrl } from "@/services/api.ts"
+import { DeleteComment, GetUserAvatarUrl } from "@/services/api.ts"
+import { useStore } from "@/utils/store.ts"
+import { computed } from "vue"
+import { Modal } from "ant-design-vue"
 
-defineProps<{
+const props = defineProps<{
   data: Comment
 }>()
+
+const store = useStore()
+
+const canEdit = computed(() => store.state.loggedIn && store.state.user?.id == props.data?.author?.id)
+
+const handleDelete = () => {
+  Modal.confirm({
+    title: "确认要删除吗",
+    content: "删除后将无法恢复",
+    async onOk() {
+      await DeleteComment(props.data.id)
+      location.reload()
+    },
+  })
+}
 </script>
 
 <template>
@@ -19,6 +37,7 @@ defineProps<{
       <div class="text-xs">
         {{ data.content }}
         <span class="text-2xs text-gray-500">{{ dayjs(data.time).format("L LT") }}</span>
+        <a v-if="canEdit" class="text-red-500" @click="handleDelete"> 删除 </a>
       </div>
     </div>
     <div class="grow" />
