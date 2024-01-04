@@ -86,7 +86,7 @@ const handleNewComment = () => {
 
       let commentObject = { author: { id: store.state.user?.id ?? 0 }, content: comment, id: 0 } satisfies Model.Comment
 
-      await SendComment(commentObject, record.value.id, false)
+      await SendComment(commentObject, guide.value.id, false)
       message.success("发送成功")
       location.reload()
       modal.destroy()

@@ -30,11 +30,14 @@ await fetchReGeoData()
 
 let [lon, lan] = resort.value.address?.split(",").map(Number) ?? [0, 0]
 
+let AMap: any
+
 AMapLoader.load({
   key: "a0a055d03dded14b86a53fdb2dc67523",
   version: "2.0",
-  plugins: ["AMap.Scale", "AMap.ToolBar", "AMap.ControlBar", "AMap.MouseTool"],
-}).then((AMap) => {
+  plugins: ["AMap.Scale", "AMap.ToolBar", "AMap.ControlBar", "AMap.MouseTool", "AMap.PlaceSearch"],
+}).then((AMap_) => {
+  AMap = AMap_
   mapInstance = new AMap.Map(map.value, {
     viewMode: "3D",
     zoom: 11,
@@ -49,7 +52,7 @@ const jump = () => {
   }
   let [lon, lan] = resort.value.address.split(",").map(Number)
 
-  mapInstance.poiOnAMAP({
+  new AMap.PlaceSearch().poiOnAMAP({
     name: resort.value.name,
     location: [lon, lan],
   })
@@ -63,14 +66,11 @@ const jump = () => {
       <div class="w-full h-[calc(100vh-350px)] rounded-t-2xl overflow-clip border-b-0 border border-black/10">
         <div ref="map" class="w-full h-full" />
       </div>
-      <div class="relative w-full h-[140px] bg-white rounded-b-2xl border-t-0 border border-black/10 py-2 px-3">
+      <div class="relative h-[140px] bg-white rounded-b-2xl border-t-0 border border-black/10 py-2 px-3">
         <div class="text-xl font-bold">{{ resort.name }}</div>
         <div class="text-sm font-normal text-gray-400">{{ reGeoData.regeocode.formatted_address }}</div>
         <div class="absolute bottom-5 right-5">
-          <div
-            class="h-[50px] w-[50px] rounded-full bg-blue-500 drop-shadow-lg flex justify-center items-center"
-            @click="jump"
-          >
+          <div class="h-[50px] w-[50px] rounded-full bg-blue-500 drop-shadow-lg flex justify-center items-center" @click="jump">
             <i class="fa-solid fa-location-arrow fa-xl" style="color: #ffffff"></i>
           </div>
         </div>
